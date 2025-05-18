@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/fuse_test.dir/main.c.o -o fuse_test  -Wl,-rpath,/home/andrew/fuse-project/fuse-3.17.2/build/lib /home/andrew/fuse-project/fuse-3.17.2/build/lib/libfuse3.so 
