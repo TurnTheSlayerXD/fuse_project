@@ -179,16 +179,6 @@ static const struct fuse_operations hello_oper = {
     .write = hello_write,
     .destroy = hello_destroy,
 };
-static void show_help(const char *progname)
-{
-    printf("usage: %s [options] <mountpoint>\n\n", progname);
-    printf("File-system specific options:\n"
-           "    --name=<s>          Name of the \"hello\" file\n"
-           "                        (default: \"hello\")\n"
-           "    --contents=<s>      Contents \"hello\" file\n"
-           "                        (default \"Hello, World!\\n\")\n"
-           "\n");
-}
 
 int main(int argc, char **argv)
 {
