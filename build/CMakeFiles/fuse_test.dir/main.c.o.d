@@ -1,13 +1,13 @@
-CMakeFiles/fuse_test.dir/main.c.o: /home/andrew/fuse-project/main.c \
- /usr/include/stdc-predef.h \
- /home/andrew/fuse-project/./fuse-3.17.2/include/fuse.h \
- /home/andrew/fuse-project/./fuse-3.17.2/include/fuse_common.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h \
- /home/andrew/fuse-project/./fuse-3.17.2/build/libfuse_config.h \
- /home/andrew/fuse-project/./fuse-3.17.2/include/fuse_opt.h \
- /home/andrew/fuse-project/./fuse-3.17.2/include/fuse_log.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
+CMakeFiles/fuse_test.dir/main.c.o: \
+ /home/andreybazhura/fuse_project/main.c /usr/include/stdc-predef.h \
+ /home/andreybazhura/fuse_project/./fuse-3.17.2/include/fuse.h \
+ /home/andreybazhura/fuse_project/./fuse-3.17.2/include/fuse_common.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
+ /home/andreybazhura/fuse_project/./fuse-3.17.2/build/libfuse_config.h \
+ /home/andreybazhura/fuse_project/./fuse-3.17.2/include/fuse_opt.h \
+ /home/andreybazhura/fuse_project/./fuse-3.17.2/include/fuse_log.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -22,12 +22,13 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andrew/fuse-project/main.c \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
  /usr/include/x86_64-linux-gnu/sys/types.h \
  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h /usr/include/endian.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h /usr/include/endian.h \
  /usr/include/x86_64-linux-gnu/bits/endian.h \
  /usr/include/x86_64-linux-gnu/bits/endianness.h \
  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
@@ -65,10 +66,15 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andrew/fuse-project/main.c \
  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
  /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/string.h \
  /usr/include/strings.h /usr/include/errno.h \
  /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
  /usr/include/x86_64-linux-gnu/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /home/andreybazhura/fuse_project/tg_structs.h /usr/include/stdlib.h \
+ /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/alloca.h \
+ /usr/include/x86_64-linux-gnu/bits/stdlib-float.h

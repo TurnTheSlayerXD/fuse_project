@@ -1,7 +1,10 @@
 {
-    "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
-        "fuse.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "array": "c",
+        "bitset": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "regex": "c"
     }
 }
