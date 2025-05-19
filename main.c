@@ -7,38 +7,9 @@
 #include <fcntl.h>
 #include <stddef.h>
 #include <assert.h>
+#include <tg_structs.h>
 
-/*
- * Command line options
- *
- * We can't set default values for the char* fields here because
- * fuse_opt_parse would attempt to free() them when the user specifies
- * different values on the command line.
- */
-
-typedef struct
-{
-
-    const char *name;
-    const char *contents;
-
-} tg_file;
-static struct options
-{
-    const char *filename;
-    const char *contents;
-
-    int show_help;
-} options;
-
-#define OPTION(t, p) \
-    {t, offsetof(struct options, p), 1}
-static const struct fuse_opt option_spec[] = {
-    OPTION("--name=%s", filename),
-    OPTION("--contents=%s", contents),
-    OPTION("-h", show_help),
-    OPTION("--help", show_help),
-    FUSE_OPT_END};
+tg_storage storage;
 
 static void *hello_init(struct fuse_conn_info *conn,
                         struct fuse_config *cfg)
@@ -65,6 +36,7 @@ static int hello_getattr(const char *path, struct stat *stbuf,
         stbuf->st_mode = S_IFDIR | 0755;
         stbuf->st_nlink = 2;
     }
+
     else if (strcmp(path + 1, options.filename) == 0)
     {
         stbuf->st_mode = S_IFREG | 0444;
@@ -91,6 +63,10 @@ static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     filler(buf, ".", NULL, 0, FUSE_FILL_DIR_DEFAULTS);
     filler(buf, "..", NULL, 0, FUSE_FILL_DIR_DEFAULTS);
     filler(buf, options.filename, NULL, 0, FUSE_FILL_DIR_DEFAULTS);
+    filler(buf, "file 1", NULL, 0, FUSE_FILL_DIR_DEFAULTS);
+    filler(buf, "file 2", NULL, 0, FUSE_FILL_DIR_DEFAULTS);
+    filler(buf, "file 3", NULL, 0, FUSE_FILL_DIR_DEFAULTS);
+    filler(buf, "file 4", NULL, 0, FUSE_FILL_DIR_DEFAULTS);
 
     return 0;
 }
@@ -151,32 +127,15 @@ int main(int argc, char *argv[])
     int ret;
     struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
 
-    /* Set defaults -- we have to use strdup so that
-       fuse_opt_parse can free the defaults if other
-       values are specified */
-    options.filename = "My hello file";
-    options.contents = "My first Hello World!\n";
+    storage = tg_storage_new();
 
+    
 
-
-    /* Parse options */
-    if (fuse_opt_parse(&args, &options, option_spec, NULL) == -1)
-        return 1;
-
-    /* When --help is specified, first print our own file-system
-       specific help text, then signal fuse_main to show
-       additional help (by adding `--help` to the options again)
-       without usage: line (by setting argv[0] to the empty
-       string) */
-    if (options.show_help)
-    {
-        show_help(argv[0]);
-        assert(fuse_opt_add_arg(&args, "--help") == 0);
-        args.argv[0][0] = '\0';
-    }
 
     ret = fuse_main(args.argc, args.argv, &hello_oper, NULL);
     fuse_opt_free_args(&args);
+
+    tg_storage_free(&storage);
 
     return ret;
 }

@@ -1,6 +1,7 @@
 {
     "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
-        "fuse.h": "c"
+        "fuse.h": "c",
+        "string.h": "c"
     }
 }
