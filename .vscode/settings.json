@@ -5,6 +5,19 @@
         "bitset": "c",
         "string_view": "c",
         "initializer_list": "c",
-        "regex": "c"
+        "regex": "c",
+        "system_error": "c",
+        "random": "c",
+        "iostream": "c",
+        "istream": "c",
+        "limits": "c",
+        "new": "c",
+        "ostream": "c",
+        "ratio": "c",
+        "stdexcept": "c",
+        "streambuf": "c",
+        "functional": "c",
+        "netdb.h": "c",
+        "curl.h": "c"
     }
 }
