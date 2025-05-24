@@ -101,8 +101,14 @@ CMakeFiles/socket_test.dir/main.c.o: /home/andrew/fuse-project/socket-test/main.
   /home/andrew/fuse-project/curl-8.13.0/include/curl/mprintf.h \
   /home/andrew/fuse-project/curl-8.13.0/include/curl/typecheck-gcc.h \
   /usr/include/string.h \
-  /usr/include/strings.h
+  /usr/include/strings.h \
+  /usr/include/assert.h \
+  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h
 
+
+/usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h:
+
+/usr/include/assert.h:
 
 /home/andrew/fuse-project/curl-8.13.0/include/curl/mprintf.h:
 

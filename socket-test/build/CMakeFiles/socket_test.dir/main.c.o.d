@@ -90,4 +90,5 @@ CMakeFiles/socket_test.dir/main.c.o: \
  /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/websockets.h \
  /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/mprintf.h \
  /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/typecheck-gcc.h \
- /usr/include/string.h /usr/include/strings.h
+ /usr/include/string.h /usr/include/strings.h /usr/include/assert.h \
+ /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h
