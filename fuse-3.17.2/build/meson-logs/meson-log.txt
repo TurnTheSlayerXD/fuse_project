@@ -1,0 +1,1072 @@
+Build started at 2025-05-26T21:17:51.224602
+Main binary: /usr/bin/python3
+Build Options: 
+Python system: Linux
+The Meson build system
+Version: 1.0.1
+Source dir: /home/andrew/fuse_project/fuse-3.17.2
+Build dir: /home/andrew/fuse_project/fuse-3.17.2/build
+Build type: native build
+Project name: libfuse3
+Project version: 3.17.2
+-----
+Detecting compiler via: cc --version
+compiler returned <Popen: returncode: 0 args: ['cc', '--version']>
+compiler stdout:
+cc (Debian 12.2.0-14+deb12u1) 12.2.0
+Copyright (C) 2022 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+compiler stderr:
+
+Running command: cc -E -dM -
+-----
+Detecting linker via: cc -Wl,--version
+linker returned <Popen: returncode: 0 args: ['cc', '-Wl,--version']>
+linker stdout:
+GNU ld (GNU Binutils for Debian) 2.40
+Copyright (C) 2023 Free Software Foundation, Inc.
+This program is free software; you may redistribute it under the terms of
+the GNU General Public License version 3 or (at your option) a later version.
+This program has absolutely no warranty.
+
+linker stderr:
+collect2 version 12.2.0
+/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/12/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/12/lto-wrapper -plugin-opt=-fresolution=/tmp/ccAspmHM.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/12/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/12 -L/usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/12/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/12/../../.. --version -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/12/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/crtn.o
+
+Sanity testing C compiler: cc
+Is cross compiler: False.
+Sanity check compiler command line: cc sanitycheckc.c -o sanitycheckc.exe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/sanitycheckc.exe
+C compiler for the host machine: cc (gcc 12.2.0 "cc (Debian 12.2.0-14+deb12u1) 12.2.0")
+C linker for the host machine: cc ld.bfd 2.40
+-----
+Detecting compiler via: cc --version
+compiler returned <Popen: returncode: 0 args: ['cc', '--version']>
+compiler stdout:
+cc (Debian 12.2.0-14+deb12u1) 12.2.0
+Copyright (C) 2022 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+compiler stderr:
+
+Running command: cc -E -dM -
+-----
+Detecting linker via: cc -Wl,--version
+linker returned <Popen: returncode: 0 args: ['cc', '-Wl,--version']>
+linker stdout:
+GNU ld (GNU Binutils for Debian) 2.40
+Copyright (C) 2023 Free Software Foundation, Inc.
+This program is free software; you may redistribute it under the terms of
+the GNU General Public License version 3 or (at your option) a later version.
+This program has absolutely no warranty.
+
+linker stderr:
+collect2 version 12.2.0
+/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/12/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/12/lto-wrapper -plugin-opt=-fresolution=/tmp/cc3LfE75.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/12/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/12 -L/usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/12/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/12/../../.. --version -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /usr/lib/gcc/x86_64-linux-gnu/12/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/crtn.o
+
+Sanity testing C compiler: cc
+Is cross compiler: False.
+Sanity check compiler command line: cc sanitycheckc.c -o sanitycheckc.exe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/sanitycheckc.exe
+C compiler for the build machine: cc (gcc 12.2.0 "cc (Debian 12.2.0-14+deb12u1) 12.2.0")
+C linker for the build machine: cc ld.bfd 2.40
+Build machine cpu family: x86_64
+Build machine cpu: x86_64
+Host machine cpu family: x86_64
+Host machine cpu: x86_64
+Target machine cpu family: x86_64
+Target machine cpu: x86_64
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp7dkk7an4
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp7dkk7an4/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp7dkk7an4/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_fork || defined __stub___fork
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &fork;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "fork" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpdryi3uql
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpdryi3uql/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpdryi3uql/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_fstatat || defined __stub___fstatat
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &fstatat;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "fstatat" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpn6d9sv2i
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpn6d9sv2i/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpn6d9sv2i/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_openat || defined __stub___openat
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &openat;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "openat" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp4_rxvry3
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp4_rxvry3/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp4_rxvry3/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_readlinkat || defined __stub___readlinkat
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &readlinkat;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "readlinkat" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpwwsfj5y4
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpwwsfj5y4/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpwwsfj5y4/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_pipe2 || defined __stub___pipe2
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &pipe2;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "pipe2" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpi3aweuv_
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpi3aweuv_/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpi3aweuv_/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_splice || defined __stub___splice
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &splice;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "splice" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpftpdu80h
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpftpdu80h/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpftpdu80h/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_vmsplice || defined __stub___vmsplice
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &vmsplice;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "vmsplice" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp_fpmbzp_
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp_fpmbzp_/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp_fpmbzp_/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_posix_fallocate || defined __stub___posix_fallocate
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &posix_fallocate;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "posix_fallocate" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpc3cmi41j
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpc3cmi41j/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpc3cmi41j/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_fdatasync || defined __stub___fdatasync
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &fdatasync;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "fdatasync" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpzd0uio6v
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpzd0uio6v/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpzd0uio6v/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_utimensat || defined __stub___utimensat
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &utimensat;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "utimensat" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp60l3ueoo
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp60l3ueoo/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp60l3ueoo/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_copy_file_range || defined __stub___copy_file_range
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &copy_file_range;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "copy_file_range" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpoa1xx_a5
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpoa1xx_a5/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpoa1xx_a5/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_fallocate || defined __stub___fallocate
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &fallocate;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "fallocate" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpl98y99zx
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpl98y99zx/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpl98y99zx/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_static_assert || defined __stub___static_assert
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &static_assert;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpl98y99zx/testfile.c: In function 'main':
+/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpl98y99zx/testfile.c:17:32: error: 'static_assert' undeclared (first use in this function)
+   17 |             void *a = (void*) &static_assert;
+      |                                ^~~~~~~~~~~~~
+/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpl98y99zx/testfile.c:17:32: note: each undeclared identifier is reported only once for each function it appears in
+
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp0z0jkin3
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp0z0jkin3/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp0z0jkin3/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+        int main(void) {
+
+        /* With some toolchains (MSYS2/mingw for example) the compiler
+         * provides various builtins which are not really implemented and
+         * fall back to the stdlib where they aren't provided and fail at
+         * build/link time. In case the user provides a header, including
+         * the header didn't lead to the function being defined, and the
+         * function we are checking isn't a builtin itself we assume the
+         * builtin is not functional and we just error out. */
+        #if !0 && !defined(static_assert) && !0
+            #error "No definition for __builtin_static_assert found in the prefix"
+        #endif
+
+        #ifdef __has_builtin
+            #if !__has_builtin(__builtin_static_assert)
+                #error "__builtin_static_assert not found"
+            #endif
+        #elif ! defined(static_assert)
+            __builtin_static_assert;
+        #endif
+        return 0;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp0z0jkin3/testfile.c: In function 'main':
+/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp0z0jkin3/testfile.c:20:14: error: #error "No definition for __builtin_static_assert found in the prefix"
+   20 |             #error "No definition for __builtin_static_assert found in the prefix"
+      |              ^~~~~
+/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp0z0jkin3/testfile.c:25:18: error: #error "__builtin_static_assert not found"
+   25 |                 #error "__builtin_static_assert not found"
+      |                  ^~~~~
+
+Checking for function "static_assert" : NO 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmphbidnpzh
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmphbidnpzh/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmphbidnpzh/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+#include <limits.h>
+
+        #if defined __stub_pthread_setname_np || defined __stub___pthread_setname_np
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &pthread_setname_np;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmphbidnpzh/testfile.c: In function 'main':
+/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmphbidnpzh/testfile.c:17:32: error: 'pthread_setname_np' undeclared (first use in this function)
+   17 |             void *a = (void*) &pthread_setname_np;
+      |                                ^~~~~~~~~~~~~~~~~~
+/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmphbidnpzh/testfile.c:17:32: note: each undeclared identifier is reported only once for each function it appears in
+
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpot4dzbu_
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpot4dzbu_/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpot4dzbu_/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+        int main(void) {
+
+        /* With some toolchains (MSYS2/mingw for example) the compiler
+         * provides various builtins which are not really implemented and
+         * fall back to the stdlib where they aren't provided and fail at
+         * build/link time. In case the user provides a header, including
+         * the header didn't lead to the function being defined, and the
+         * function we are checking isn't a builtin itself we assume the
+         * builtin is not functional and we just error out. */
+        #if !0 && !defined(pthread_setname_np) && !0
+            #error "No definition for __builtin_pthread_setname_np found in the prefix"
+        #endif
+
+        #ifdef __has_builtin
+            #if !__has_builtin(__builtin_pthread_setname_np)
+                #error "__builtin_pthread_setname_np not found"
+            #endif
+        #elif ! defined(pthread_setname_np)
+            __builtin_pthread_setname_np;
+        #endif
+        return 0;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpot4dzbu_/testfile.c: In function 'main':
+/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpot4dzbu_/testfile.c:20:14: error: #error "No definition for __builtin_pthread_setname_np found in the prefix"
+   20 |             #error "No definition for __builtin_pthread_setname_np found in the prefix"
+      |              ^~~~~
+/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpot4dzbu_/testfile.c:25:18: error: #error "__builtin_pthread_setname_np not found"
+   25 |                 #error "__builtin_pthread_setname_np not found"
+      |                  ^~~~~
+
+Checking for function "pthread_setname_np" : NO 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp1cl919e8
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp1cl919e8/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp1cl919e8/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 
+
+Code:
+ #include <sys/xattr.h>
+#include <limits.h>
+
+        #if defined __stub_setxattr || defined __stub___setxattr
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &setxattr;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "setxattr" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpa17b97ls
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpa17b97ls/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpa17b97ls/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 
+
+Code:
+ #include <iconv.h>
+#include <limits.h>
+
+        #if defined __stub_iconv || defined __stub___iconv
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &iconv;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "iconv" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpxk4otvqe
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpxk4otvqe/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpxk4otvqe/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 
+
+Code:
+ #include <execinfo.h>
+#include <limits.h>
+
+        #if defined __stub_backtrace || defined __stub___backtrace
+        fail fail fail this function is not going to work
+        #endif
+        
+int main(void) {
+            void *a = (void*) &backtrace;
+            long long b = (long long) a;
+            return (int) b;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking for function "backtrace" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpii8k3z6o
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpii8k3z6o/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpii8k3z6o/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 
+
+Code:
+ 
+        #include <#include <linux/close_range.h>>
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpii8k3z6o/testfile.c:2:49: warning: extra tokens at end of #include directive
+    2 |         #include <#include <linux/close_range.h>>
+      |                                                 ^
+/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpii8k3z6o/testfile.c:2:18: fatal error: #include <linux/close_range.h: No such file or directory
+    2 |         #include <#include <linux/close_range.h>>
+      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+
+Check usable header "#include <linux/close_range.h>" : NO 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpwkcatc9u
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpwkcatc9u/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpwkcatc9u/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+        void bar(void) {
+            struct stat foo;
+            foo.st_atim;
+
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Checking whether type "struct stat" has member "st_atim" : YES 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpi2d6ys1m
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpi2d6ys1m/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpi2d6ys1m/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -D_GNU_SOURCE 
+
+Code:
+ 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+        void bar(void) {
+            struct stat foo;
+            foo.st_atimespec;
+
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpi2d6ys1m/testfile.c: In function 'bar':
+/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpi2d6ys1m/testfile.c:12:16: error: 'struct stat' has no member named 'st_atimespec'
+   12 |             foo.st_atimespec;
+      |                ^
+
+Checking whether type "struct stat" has member "st_atimespec" : NO 
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpxvd6ahkc
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpxvd6ahkc/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpxvd6ahkc/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -O0 -Werror=unused-result 
+
+Code:
+ 
+__attribute__((warn_unused_result)) int get_4() {
+    return 4;
+}
+int main(void) {
+    (void) get_4();
+    return 0;
+}
+Compiler stdout:
+ 
+Compiler stderr:
+ /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpxvd6ahkc/testfile.c: In function 'main':
+/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpxvd6ahkc/testfile.c:6:12: error: ignoring return value of 'get_4' declared with attribute 'warn_unused_result' [-Werror=unused-result]
+    6 |     (void) get_4();
+      |            ^~~~~~~
+cc1: some warnings being treated as errors
+
+Message: Compiler warns about unused result even when casting to void
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpnx3feua_
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpnx3feua_/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpnx3feua_/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -O0 
+
+Code:
+ 
+int main(void) {
+#if (defined(__UCLIBC__) || defined(__APPLE__))
+#error /* libc does not have versioned symbols */
+#endif
+    return 0;
+}
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Message: Enabling versioned libc symbols
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp71ktbcub
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp71ktbcub/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp71ktbcub/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 -O0 -Werror 
+
+Code:
+ 
+     __attribute__ ((symver ("test@TEST")))
+     void foo(void) {
+     }
+
+     int main(void) {
+         return 0;
+     }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Message: Compiler supports symver attribute
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpq52butr8
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpq52butr8/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpq52butr8/output.exe -D_FILE_OFFSET_BITS=64 -O0 -std=gnu11 
+
+Code:
+ 
+#define _GNU_SOURCE
+#include <mntent.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define dir_space_tab "dir\\040space\\011tab"
+
+int main()
+{
+    const char *fake_mtab = "name " dir_space_tab " type opts 0 0\n";
+    FILE *f = fmemopen((void *)fake_mtab, strlen(fake_mtab) + 1, "r");
+    struct mntent *entp = getmntent(f);
+    fclose(f);
+    if(NULL == entp)
+        exit(EXIT_FAILURE);
+    if (0 == strcmp(entp->mnt_dir, dir_space_tab))
+        printf("needs escaping\n");
+    else
+        printf("no need to escape\n");
+}
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Program stdout:
+
+no need to escape
+
+Program stderr:
+
+
+Configuring fuse_config.h using configuration
+Configuring libfuse_config.h using configuration
+Run-time dependency threads found: YES
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpt5ell5c_
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpt5ell5c_/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpt5ell5c_/output.exe -D_FILE_OFFSET_BITS=64 -O0 -Wl,--start-group -liconv -Wl,--end-group -Wl,--allow-shlib-undefined 
+
+Code:
+ int main(void) { return 0; }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ /usr/bin/ld: cannot find -liconv: No such file or directory
+collect2: error: ld returned 1 exit status
+
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp475see9t
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp475see9t/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp475see9t/output.exe -D_FILE_OFFSET_BITS=64 -O0 
+
+Code:
+ #include<stdio.h>
+        
+        int main(void) {
+            printf("%ld\n", (long)(sizeof(void *)));
+            return 0;
+        }
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Program stdout:
+
+8
+
+Program stderr:
+
+
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp5i24gffk
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp5i24gffk/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmp5i24gffk/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 --print-search-dirs 
+
+Code:
+ 
+Compiler stdout:
+ install: /usr/lib/gcc/x86_64-linux-gnu/12/
+programs: =/usr/lib/gcc/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/bin/
+libraries: =/usr/lib/gcc/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../lib/:/lib/x86_64-linux-gnu/12/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/12/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/lib/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../:/lib/:/usr/lib/
+
+Compiler stderr:
+ 
+Library iconv found: NO
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpre1pav61
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpre1pav61/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpre1pav61/output.exe -D_FILE_OFFSET_BITS=64 -O0 -Wl,--start-group -ldl -Wl,--end-group -Wl,--allow-shlib-undefined 
+
+Code:
+ int main(void) { return 0; }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Library dl found: YES
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpxuk16mgq
+Command line:  cc /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpxuk16mgq/testfile.c -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpxuk16mgq/output.exe -D_FILE_OFFSET_BITS=64 -O0 -Wl,--start-group -lrt -Wl,--end-group -Wl,--allow-shlib-undefined 
+
+Code:
+ int main(void) { return 0; }
+
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Library rt found: YES
+Pkg-config binary for 1 is not cached.
+Pkg-config binary missing from cross or native file, or env var undefined.
+Trying a default Pkg-config fallback at pkg-config
+Did not find pkg-config by name 'pkg-config'
+Found Pkg-config: NO
+Pkg-config binary for machine 1 not found. Giving up.
+CMake binary for 1 is not cached
+CMake binary missing from cross or native file, or env var undefined.
+Trying a default CMake fallback at cmake
+Found CMake: /usr/bin/cmake (3.25.1)
+Extracting basic cmake information
+CMake Toolchain: Calling CMake once to generate the compiler state
+Calling CMake (['/usr/bin/cmake']) in /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/__CMake_compiler_info__ with:
+  - "--trace-expand"
+  - "--trace-format=json-v1"
+  - "--no-warn-unused-cli"
+  - "--trace-redirect=cmake_trace.txt"
+  - "-G"
+  - "Ninja"
+  - "-DCMAKE_TOOLCHAIN_FILE=/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/__CMake_compiler_info__/CMakeMesonTempToolchainFile.cmake"
+  - "."
+Try CMake generator: auto
+Calling CMake (['/usr/bin/cmake']) in /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/cmake_udev with:
+  - "--trace-expand"
+  - "--trace-format=json-v1"
+  - "--no-warn-unused-cli"
+  - "--trace-redirect=cmake_trace.txt"
+  - "-DCMAKE_TOOLCHAIN_FILE=/home/andrew/fuse_project/fuse-3.17.2/build/meson-private/cmake_udev/CMakeMesonToolchainFile.cmake"
+  - "."
+  -- Module search paths:    ['/', '/opt', '/usr', '/usr/local']
+  -- CMake root:             /usr/share/cmake-3.25
+  -- CMake architectures:    ['x86_64-linux-gnu']
+  -- CMake lib search paths: ['lib', 'lib32', 'lib64', 'libx32', 'share', 'lib/x86_64-linux-gnu']
+Preliminary CMake check failed. Aborting.
+Run-time dependency udev found: NO (tried pkgconfig and cmake)
+../util/meson.build:26: WARNING: could not determine udevdir, udev.rules will not be installed
+-----
+Detecting compiler via: c++ --version
+compiler returned <Popen: returncode: 0 args: ['c++', '--version']>
+compiler stdout:
+c++ (Debian 12.2.0-14+deb12u1) 12.2.0
+Copyright (C) 2022 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+compiler stderr:
+
+Running command: c++ -E -dM -
+-----
+Detecting linker via: c++ -Wl,--version
+linker returned <Popen: returncode: 0 args: ['c++', '-Wl,--version']>
+linker stdout:
+GNU ld (GNU Binutils for Debian) 2.40
+Copyright (C) 2023 Free Software Foundation, Inc.
+This program is free software; you may redistribute it under the terms of
+the GNU General Public License version 3 or (at your option) a later version.
+This program has absolutely no warranty.
+
+linker stderr:
+collect2 version 12.2.0
+/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/12/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/12/lto-wrapper -plugin-opt=-fresolution=/tmp/ccO0wHRl.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/12/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/12 -L/usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/12/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/12/../../.. --version -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/12/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/crtn.o
+
+Sanity testing C++ compiler: c++
+Is cross compiler: False.
+Sanity check compiler command line: c++ sanitycheckcpp.cc -o sanitycheckcpp.exe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/sanitycheckcpp.exe
+C++ compiler for the build machine: c++ (gcc 12.2.0 "c++ (Debian 12.2.0-14+deb12u1) 12.2.0")
+C++ linker for the build machine: c++ ld.bfd 2.40
+-----
+Detecting compiler via: c++ --version
+compiler returned <Popen: returncode: 0 args: ['c++', '--version']>
+compiler stdout:
+c++ (Debian 12.2.0-14+deb12u1) 12.2.0
+Copyright (C) 2022 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+compiler stderr:
+
+Running command: c++ -E -dM -
+-----
+Detecting linker via: c++ -Wl,--version
+linker returned <Popen: returncode: 0 args: ['c++', '-Wl,--version']>
+linker stdout:
+GNU ld (GNU Binutils for Debian) 2.40
+Copyright (C) 2023 Free Software Foundation, Inc.
+This program is free software; you may redistribute it under the terms of
+the GNU General Public License version 3 or (at your option) a later version.
+This program has absolutely no warranty.
+
+linker stderr:
+collect2 version 12.2.0
+/usr/bin/ld -plugin /usr/lib/gcc/x86_64-linux-gnu/12/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/12/lto-wrapper -plugin-opt=-fresolution=/tmp/ccBh8kBo.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/Scrt1.o /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/12/crtbeginS.o -L/usr/lib/gcc/x86_64-linux-gnu/12 -L/usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/12/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/12/../../.. --version -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/12/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/crtn.o
+
+Sanity testing C++ compiler: c++
+Is cross compiler: False.
+Sanity check compiler command line: c++ sanitycheckcpp.cc -o sanitycheckcpp.exe -D_FILE_OFFSET_BITS=64
+Sanity check compile stdout:
+
+-----
+Sanity check compile stderr:
+
+-----
+Running test binary command:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/sanitycheckcpp.exe
+C++ compiler for the host machine: c++ (gcc 12.2.0 "c++ (Debian 12.2.0-14+deb12u1) 12.2.0")
+C++ linker for the host machine: c++ ld.bfd 2.40
+Adding test "wrong_command"
+Build targets in project: 32
+
+Found ninja-1.11.1 at /usr/bin/ninja
+Running compile:
+Working directory:  /tmp/tmp1iinqeor
+Command line:  c++ /tmp/tmp1iinqeor/testfile.cpp -o /tmp/tmp1iinqeor/output.obj -D_FILE_OFFSET_BITS=64 -c -std=c++17 
+
+Code:
+ int i = static_cast<int>(0);
+Compiler stdout:
+ 
+Compiler stderr:
+ 
+Compiler accepts -std=c++17: YES
+Running compile:
+Working directory:  /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpykmjseml
+Command line:  c++ /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpykmjseml/testfile.cpp -o /home/andrew/fuse_project/fuse-3.17.2/build/meson-private/tmpykmjseml/output.obj -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
+
+Code:
+ 
+Compiler stdout:
+ install: /usr/lib/gcc/x86_64-linux-gnu/12/
+programs: =/usr/lib/gcc/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/bin/
+libraries: =/usr/lib/gcc/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/12/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../lib/:/lib/x86_64-linux-gnu/12/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/12/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../../x86_64-linux-gnu/lib/:/usr/lib/gcc/x86_64-linux-gnu/12/../../../:/lib/:/usr/lib/
+
+Compiler stderr:
+ 
+Failed to guess install tag for install script: /home/andrew/fuse_project/fuse-3.17.2/util/install_helper.sh /usr/local/etc /usr/local/bin  true /etc/init.d/

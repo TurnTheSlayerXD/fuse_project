@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/andrew/fuse-project/socket-test/main.c" "CMakeFiles/socket_test.dir/main.c.o" "gcc" "CMakeFiles/socket_test.dir/main.c.o.d"
+  "/home/andrew/fuse_project/socket-test/main.c" "CMakeFiles/socket_test.dir/main.c.o" "gcc" "CMakeFiles/socket_test.dir/main.c.o.d"
   )
 
 # Targets to which this target links.

@@ -6,118 +6,152 @@
 #include <assert.h>
 #include <stdbool.h>
 
-#define buffer_SIZE 1000
+#define RESPONSE_BUF_SIZE 1000
 
 static char error_buffer[CURL_ERROR_SIZE];
 
+static char response_buf[RESPONSE_BUF_SIZE];
 
-static char stor[buffer_SIZE];
-
-
-typedef struct input input;
-
-static size_t read_callback(char *ptr, size_t size, size_t nmemb, void *userp)
+static void abort_if_error(CURLcode code)
 {
-    input *i = userp;
-    size_t retcode = fread(ptr, size, nmemb, i->in);
-    i->bytes_read += retcode;
-    return retcode;
-}
-
-static int get_file_size(FILE *f)
-{
-    int cur_pos = ftell(f);
-
-    fseek(f, 0, SEEK_END);
-    int end = ftell(f);
-    fseek(f, 0, SEEK_SET);
-    int start = ftell(f);
-
-    fseek(f, cur_pos, SEEK_SET);
-
-    return end - start;
-}
-
-
-static writer(char *data, size_t size, size_t nmemb,
-              void *p)
-{
-    memcpy(p, data, size * nmemb);
-    return size * nmemb;
-}
-
-static void receive_file()
-{
-
-    CURL *hnd = curl_easy_init();
-
-    const char *file_id = "BQACAgIAAyEGAASYXaGkAAMNaDNcyyCpoIErXO_8Vhdas5SZZd0AAm5vAAIoHJlJlX1URQlwtHA2BA";
-
-    CURLcode code;
-    if (hnd)
+    if (code != CURLE_OK)
     {
-
-        buffer st = buffer_new();
-
-        curl_easy_setopt(hnd, CURLOPT_ERRORBUFFER, error_buffer);
-        curl_easy_setopt(hnd, CURLOPT_FOLLOWLOCATION, 1L);
-
-        curl_easy_setopt(hnd, CURLOPT_WRITEFUNCTION, buffer_writer);
-        curl_easy_setopt(hnd, CURLOPT_WRITEDATA, &st);
-        curl_easy_setopt(hnd, CURLOPT_URL, "https://api.telegram.org/file/bot6947966209:AAGuVGoVPuU-KK3QjvY-3lr_D3zQgujRwyo/documents/file_0");
-
-        code = curl_easy_perform(hnd);
-
-        fprintf(stdout, "response len = %d\r\n",
-                st.size);
-
-        fprintf(stdout, "error buf:\r\n%s\n",
-                error_buffer);
-
-        curl_easy_cleanup(hnd);
+        fprintf(stderr, "curl_easy_perform() failed on send: %s\n",
+                curl_easy_strerror(code));
+        assert(false);
     }
 }
 
-static void send_file(input *i)
+size_t get_file_size(FILE *f)
 {
+
+    long pos = ftell(f);
+
+    fseek(f, 0, SEEK_SET);
+    long b = ftell(f);
+
+    fseek(f, 0, SEEK_END);
+
+    long e = ftell(f);
+
+    fseek(f, pos, SEEK_SET);
+
+    return e - b;
+}
+static size_t curl_writer(char *data, size_t size, size_t nmemb,
+                          void *p)
+{
+    memcpy(response_buf, data, size * nmemb);
+    return size * nmemb;
+}
+
+static void edit_message_data(const char *path)
+{
+    CURL *hnd = curl_easy_init();
+
     CURLcode code;
 
     const char *char_id = "-1002556273060";
 
-    curl_easy_setopt(i->hnd, CURLOPT_ERRORBUFFER, error_buffer);
-    curl_easy_setopt(i->hnd, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(hnd, CURLOPT_ERRORBUFFER, error_buffer);
+    curl_easy_setopt(hnd, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(hnd, CURLOPT_WRITEFUNCTION, curl_writer);
+    curl_easy_setopt(hnd, CURLOPT_WRITEDATA, response_buf);
 
-    curl_easy_setopt(i->hnd, CURLOPT_WRITEFUNCTION, writer);
-    curl_easy_setopt(i->hnd, CURLOPT_WRITEDATA, stor);
+    FILE *f = fopen(path, "rb");
+    size_t size = get_file_size(f);
+    char *data = malloc(size);
+    fread(data, size, 1, f);
+    fclose(f);
 
-    curl_mime *multipart = curl_mime_init(i->hnd);
-
+    curl_mime *multipart = curl_mime_init(hnd);
     curl_mimepart *part = curl_mime_addpart(multipart);
-
-    code = curl_mime_name(part, "document");
+    code = curl_mime_name(part, "file");
     abort_if_error(code);
-
-    code = curl_mime_filedata(part, "./test.txt");
+    code = curl_mime_data(part, data, size);
     abort_if_error(code);
+    code = curl_mime_filename(part, "new_file.txt");
+    abort_if_error(code);
+    
+    // curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"media\":{type:\"document\",\"media\":\"hello\"}}");
 
-    curl_easy_setopt(i->hnd, CURLOPT_MIMEPOST, multipart);
-    curl_easy_setopt(i->hnd, CURLOPT_URL, "https://api.telegram.org/bot6947966209:AAGuVGoVPuU-KK3QjvY-3lr_D3zQgujRwyo/sendDocument?chat_id=-1002556273060");
+    const char *media = "{\"type\":\"document\",\"media\":\"attach://file\"}";
+    curl_easy_setopt(hnd, CURLOPT_MIMEPOST, multipart);
+    // curl_easy_setopt(hnd, CURLOPT_POST, 0L);
 
-    code = curl_easy_perform(i->hnd);
+    char url[1000];
+    const char *chat_id = "-1002556273060";
+    const char *message_id = "14";
+    sprintf(url, "https://api.telegram.org/bot6947966209:AAGuVGoVPuU-KK3QjvY-3lr_D3zQgujRwyo/editMessageMedia?chat_id=%s&message_id=%s&media=%s",
+            char_id, message_id, media);
+    curl_easy_setopt(hnd, CURLOPT_URL, url);
+    printf("URL:%s\n\n", url);
+
+    code = curl_easy_perform(hnd);
 
     abort_if_error(code);
     fprintf(stdout, "response len = %d, response:\r\n%s\n\n",
-            strlen(stor),
-            stor);
+            strlen(response_buf),
+            response_buf);
 
     fprintf(stdout, "error buf:\r\n%s\n",
             error_buffer);
+
+    free(data);
+    curl_mime_free(multipart);
+    curl_easy_cleanup(hnd);
+}
+
+static void send_file(const char *path)
+{
+    CURL *hnd = curl_easy_init();
+
+    CURLcode code;
+
+    const char *char_id = "-1002556273060";
+
+    curl_easy_setopt(hnd, CURLOPT_ERRORBUFFER, error_buffer);
+    curl_easy_setopt(hnd, CURLOPT_FOLLOWLOCATION, 1L);
+
+    curl_easy_setopt(hnd, CURLOPT_WRITEFUNCTION, curl_writer);
+    curl_easy_setopt(hnd, CURLOPT_WRITEDATA, response_buf);
+
+    FILE *f = fopen(path, "rb");
+    size_t size = get_file_size(f);
+    char *data = malloc(size);
+    fread(data, size, 1, f);
+    fclose(f);
+
+    curl_mime *multipart = curl_mime_init(hnd);
+    curl_mimepart *part = curl_mime_addpart(multipart);
+    code = curl_mime_name(part, "document");
+    abort_if_error(code);
+    code = curl_mime_data(part, data, size);
+    abort_if_error(code);
+    code = curl_mime_filename(part, "some_file.txt");
+    abort_if_error(code);
+
+    curl_easy_setopt(hnd, CURLOPT_MIMEPOST, multipart);
+    curl_easy_setopt(hnd, CURLOPT_URL, "https://api.telegram.org/bot6947966209:AAGuVGoVPuU-KK3QjvY-3lr_D3zQgujRwyo/sendDocument?chat_id=-1002556273060");
+
+    code = curl_easy_perform(hnd);
+
+    abort_if_error(code);
+    fprintf(stdout, "response len = %d, response:\r\n%s\n\n",
+            strlen(response_buf),
+            response_buf);
+
+    fprintf(stdout, "error buf:\r\n%s\n",
+            error_buffer);
+
+    free(data);
+    curl_mime_free(multipart);
+    curl_easy_cleanup(hnd);
 }
 
 int main()
 {
-
-    memset(stor, 0, buffer_SIZE);
+    memset(response_buf, 0, RESPONSE_BUF_SIZE);
     memset(error_buffer, 0, CURL_ERROR_SIZE);
 
     char token[] = "6947966209:AAEklSLutFkdTgdfIywyXhK3VrsNISYOWcc";
@@ -125,46 +159,7 @@ int main()
 
     curl_global_init(CURL_GLOBAL_DEFAULT);
 
-    input i = {
-        .hnd = curl_easy_init(),
-        .in = fopen("./test.txt", "rb"),
-        .num = 0,
-        .bytes_read = 0,
-    };
-
-    send_file(&i);
-
-    fclose(i.in);
-    curl_easy_cleanup(i.hnd);
-
-    // CURL *curl = curl_easy_init();
-    // if (curl)
-    // {
-    //     curl_easy_setopt(curl, CURLOPT_URL, "https://api.telegram.org/bot6947966209:AAGuVGoVPuU-KK3QjvY-3lr_D3zQgujRwyo/getMe");
-
-    //     curl_easy_setopt(curl, CURLOPT_HTTPGET, "");
-    //     curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
-
-    //     curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, error_buffer);
-    //     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-
-    //     curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writer);
-    //     curl_easy_setopt(curl, CURLOPT_WRITEDATA, buffer);
-
-    //     CURLcode res = curl_easy_perform(curl);
-
-    //     if (res != CURLE_OK)
-    //     {
-    //         fprintf(stderr, "curl_easy_perform() failed: %s\n",
-    //                 curl_easy_strerror(res));
-    //     }
-    //     else
-    //     {
-    //         fprintf(stderr, "response:\r\n%s\n",
-    //                 buffer);
-    //     }
-    //     curl_easy_cleanup(curl);
-    // }
+    edit_message_data("./hello.txt");
 
     curl_global_cleanup();
     return 0;

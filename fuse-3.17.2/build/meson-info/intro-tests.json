@@ -1,0 +1,1 @@
+[{"cmd": ["/home/andrew/fuse_project/fuse-3.17.2/build/test/wrong_command"], "env": {}, "name": "wrong_command", "workdir": null, "timeout": 30, "suite": ["libfuse3"], "is_parallel": true, "priority": 0, "protocol": "exitcode", "depends": ["9f86d08@@wrong_command@exe"]}]

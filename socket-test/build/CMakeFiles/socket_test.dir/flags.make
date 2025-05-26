@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/andrew/fuse-project/socket-test/../curl-8.13.0/include
+C_INCLUDES = -I/home/andrew/fuse_project/socket-test/../curl-8.13.0/include
 
 C_FLAGS = -g
 

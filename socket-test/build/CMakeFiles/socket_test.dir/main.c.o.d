@@ -1,5 +1,5 @@
 CMakeFiles/socket_test.dir/main.c.o: \
- /home/andrew/fuse-project/socket-test/main.c /usr/include/stdc-predef.h \
+ /home/andrew/fuse_project/socket-test/main.c /usr/include/stdc-predef.h \
  /usr/include/stdio.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
@@ -48,9 +48,9 @@ CMakeFiles/socket_test.dir/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
  /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/curl.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/curlver.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/system.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/curl.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/curlver.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/system.h \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
  /usr/include/x86_64-linux-gnu/bits/socket.h \
@@ -81,14 +81,14 @@ CMakeFiles/socket_test.dir/main.c.o: \
  /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
  /usr/include/x86_64-linux-gnu/sys/time.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/easy.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/multi.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/curl.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/urlapi.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/options.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/header.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/websockets.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/mprintf.h \
- /home/andrew/fuse-project/socket-test/../curl-8.13.0/include/curl/typecheck-gcc.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/easy.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/multi.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/curl.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/urlapi.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/options.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/header.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/websockets.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/mprintf.h \
+ /home/andrew/fuse_project/socket-test/../curl-8.13.0/include/curl/typecheck-gcc.h \
  /usr/include/string.h /usr/include/strings.h /usr/include/assert.h \
  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h

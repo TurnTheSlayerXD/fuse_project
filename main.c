@@ -132,7 +132,7 @@ static int hello_read(const char *path, char *buf, size_t size, off_t offset,
         size = 0;
     }
 
-    buffer_free(&buf);
+    buffer_free(&src);
 
     return size;
 }
@@ -145,13 +145,18 @@ int hello_write(const char *path, const char *buf, size_t size, off_t offset, st
 
     buffer data;
 
-    if (!(file = tg_storage_find_by_path(&storage, path)) || file->type == TG_DIR)
+    if (!(file = tg_storage_find_by_path(&storage, path)))
     {
+
         if_no = tg_file_new_file(path, offset + size);
         tg_storage_push(&storage, if_no);
         file = &if_no;
 
         data = buffer_new();
+    }
+    else if (file->type == TG_DIR)
+    {
+        return -ENOENT;
     }
     else
     {
@@ -189,12 +194,15 @@ int main(int argc, char **argv)
 
     storage = tg_storage_new();
 
+    config = tg_config_new("-1002556273060", "6947966209:AAEklSLutFkdTgdfIywyXhK3VrsNISYOWcc");
+
     tg_storage_push(&storage, tg_file_new_dir("/"));
 
     fprintf(stderr, "MARK\n");
 
     fprintf(stderr, "END\n");
-    // tg_storage_free(&storage);
+
+    tg_storage_free(&storage);
 
     ret = fuse_main(args.argc, args.argv, &hello_oper, NULL);
 

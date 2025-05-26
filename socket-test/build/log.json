@@ -1,0 +1,24 @@
+{
+    "ok": true,
+    "result": {
+        "message_id": 14,
+        "sender_chat": {
+            "id": -1002556273060,
+            "title": "test",
+            "type": "channel"
+        },
+        "chat": {
+            "id": -1002556273060,
+            "title": "test",
+            "type": "channel"
+        },
+        "date": 1748278472,
+        "document": {
+            "file_name": "some_file.txt",
+            "mime_type": "text/plain",
+            "file_id": "BQACAgIAAyEGAASYXaGkAAMOaDScyFhnAAG5UdfGHhM8aQjx_YxPAAKAeQACaH2hSYd8EUUtHW2xNgQ",
+            "file_unique_id": "AgADgHkAAmh9oUk",
+            "file_size": 12
+        }
+    }
+}
