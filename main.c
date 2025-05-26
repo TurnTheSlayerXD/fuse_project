@@ -16,6 +16,8 @@ static tg_config config;
 static void *hello_init(struct fuse_conn_info *conn,
                         struct fuse_config *cfg)
 {
+    int x;
+
     (void)conn;
     cfg->kernel_cache = 1;
 
@@ -174,6 +176,7 @@ int hello_write(const char *path, const char *buf, size_t size, off_t offset, st
 
 static void hello_destroy(void *private_data)
 {
+    (void)private_data;
     tg_storage_free(&storage);
 }
 

@@ -72,12 +72,9 @@ static void edit_message_data(const char *path)
     abort_if_error(code);
     code = curl_mime_filename(part, "new_file.txt");
     abort_if_error(code);
-    
-    // curl_easy_setopt(hnd, CURLOPT_POSTFIELDS, "{\"media\":{type:\"document\",\"media\":\"hello\"}}");
 
     const char *media = "{\"type\":\"document\",\"media\":\"attach://file\"}";
     curl_easy_setopt(hnd, CURLOPT_MIMEPOST, multipart);
-    // curl_easy_setopt(hnd, CURLOPT_POST, 0L);
 
     char url[1000];
     const char *chat_id = "-1002556273060";
