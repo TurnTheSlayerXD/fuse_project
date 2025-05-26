@@ -22,17 +22,24 @@ typedef enum
 
 typedef struct
 {
-    char *path;
+    char path[FILE_PATH_SIZE];
     char file_id[FILE_ID_SIZE];
     char message_id[MESSAGE_ID_SIZE];
+
+    size_t file_size;
 
     tg_file_type type;
 
 } tg_file;
 
-static tg_file tg_file_new_file(char *path)
+static tg_file tg_file_new_file(char *path, size_t file_size)
 {
-    return (tg_file){.path = path, .type = TG_FILE};
+    tg_file file = (tg_file){.path = path, .type = TG_FILE, .file_size = file_size};
+
+    memset(file.file_id, 0, FILE_ID_SIZE);
+    memset(file.message_id, 0, MESSAGE_ID_SIZE);
+
+    return file;
 }
 
 static tg_file tg_file_new_dir(char *path)
@@ -62,7 +69,7 @@ static size_t curl_writer(char *data, size_t size, size_t nmemb,
     return size * nmemb;
 }
 
-char *tg_put_file(tg_file *dst, tg_config *config, buffer *data)
+char *tg_put_file(tg_file *file, tg_config *config, buffer *data)
 {
     curl_global_init(CURL_GLOBAL_DEFAULT);
     CURLcode code;
@@ -83,31 +90,54 @@ char *tg_put_file(tg_file *dst, tg_config *config, buffer *data)
     curl_easy_setopt(hnd, CURLOPT_WRITEDATA, response_buf);
 
     curl_mime *multipart = curl_mime_init(hnd);
-    curl_mimepart *part = curl_mime_addpart(multipart);
 
+    curl_mimepart *part = curl_mime_addpart(multipart);
     code = curl_mime_name(part, "document");
     abort_if_error(code);
-
-    code = curl_mime_filedata(part, tg_file_get_filename(dst));
+    code = curl_mime_data(part, data, data->size);
     abort_if_error(code);
-
-    curl_easy_setopt(hnd, CURLOPT_MIMEPOST, multipart);
+    code = curl_mime_filename(part, tg_file_get_filename(file));
+    abort_if_error(code);
 
     char url[1000];
 
-    sprintf(url, "https://api.telegram.org/bot%s/sendDocument?chat_id=%s", config->token, config->chat_id);
-
-    curl_easy_setopt(hnd, CURLOPT_URL, url);
-
-    code = curl_easy_perform(hnd);
-
-    if (code != CURLE_OK)
+    if (strlen(file->file_id) == 0)
     {
-        assert(false && "COULD NOT SEND PUT FILE REQUEST");
-    }
+        curl_easy_setopt(hnd, CURLOPT_MIMEPOST, multipart);
 
-    parse_response_field_from_json(dst->file_id, &response_buf, "file_id");
-    parse_response_field_from_json(dst->message_id, &response_buf, "message_id");
+        sprintf(url, "https://api.telegram.org/bot%s/sendDocument?chat_id=%s", config->token, config->chat_id);
+
+        curl_easy_setopt(hnd, CURLOPT_URL, url);
+
+        code = curl_easy_perform(hnd);
+
+        if (code != CURLE_OK)
+        {
+            assert(false && "COULD NOT SEND PUT FILE REQUEST");
+        }
+
+        parse_response_field_from_json(file->file_id, &response_buf, "file_id");
+        parse_response_field_from_json(file->message_id, &response_buf, "message_id");
+    }
+    else
+    {
+        sprintf(url, "https://api.telegram.org/bot%s/editMessageMedia?chat_id=%smessage_id=%s",
+                config->token, config->chat_id, file->message_id);
+        curl_easy_setopt(hnd, CURLOPT_URL, url);
+
+        curl_mimepart *part = curl_mime_addpart(multipart);
+
+        code = curl_mime_name(part, "media");
+        abort_if_error(code);
+
+        
+
+        code = curl_mime_data(part, data, data->size);
+        abort_if_error(code);
+
+        code = curl_mime_filename(part, tg_file_get_filename(file));
+        abort_if_error(code);
+    }
 
     curl_easy_cleanup(hnd);
     curl_global_cleanup();

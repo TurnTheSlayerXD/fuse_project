@@ -84,9 +84,9 @@ enum fuse_fill_dir_flags {
  * @param flags fill flags
  * @return 1 if buffer is full, zero otherwise
  */
-typedef int (*fuse_fill_dir_t) (void *buf, const char *name,
-				const struct stat *stbuf, off_t off,
-				enum fuse_fill_dir_flags flags);
+typedef int (*fuse_fill_dir_t)(void *buf, const char *name,
+			       const struct stat *stbuf, off_t off,
+			       enum fuse_fill_dir_flags flags);
 /**
  * Configuration of the high-level API
  *
@@ -311,7 +311,6 @@ struct fuse_config {
 	 */
 	int32_t parallel_direct_writes;
 
-
 	/**
 	 * Reserved for future use.
 	 */
@@ -322,7 +321,6 @@ struct fuse_config {
 	 */
 	uint64_t reserved[48];
 };
-
 
 /**
  * The file system operations:
@@ -358,7 +356,7 @@ struct fuse_operations {
 	 * `fi` will always be NULL if the file is not currently open, but
 	 * may also be NULL if the file is open.
 	 */
-	int (*getattr) (const char *, struct stat *, struct fuse_file_info *fi);
+	int (*getattr)(const char *, struct stat *, struct fuse_file_info *fi);
 
 	/** Read the target of a symbolic link
 	 *
@@ -368,7 +366,7 @@ struct fuse_operations {
 	 * buffer, it should be truncated.	The return value should be 0
 	 * for success.
 	 */
-	int (*readlink) (const char *, char *, size_t);
+	int (*readlink)(const char *, char *, size_t);
 
 	/** Create a file node
 	 *
@@ -376,7 +374,7 @@ struct fuse_operations {
 	 * nodes.  If the filesystem defines a create() method, then for
 	 * regular files that will be called instead.
 	 */
-	int (*mknod) (const char *, mode_t, dev_t);
+	int (*mknod)(const char *, mode_t, dev_t);
 
 	/** Create a directory
 	 *
@@ -384,16 +382,16 @@ struct fuse_operations {
 	 * bits set, i.e. S_ISDIR(mode) can be false.  To obtain the
 	 * correct directory type bits use  mode|S_IFDIR
 	 * */
-	int (*mkdir) (const char *, mode_t);
+	int (*mkdir)(const char *, mode_t);
 
 	/** Remove a file */
-	int (*unlink) (const char *);
+	int (*unlink)(const char *);
 
 	/** Remove a directory */
-	int (*rmdir) (const char *);
+	int (*rmdir)(const char *);
 
 	/** Create a symbolic link */
-	int (*symlink) (const char *, const char *);
+	int (*symlink)(const char *, const char *);
 
 	/** Rename a file
 	 *
@@ -404,17 +402,17 @@ struct fuse_operations {
 	 * must atomically exchange the two files, i.e. both must
 	 * exist and neither may be deleted.
 	 */
-	int (*rename) (const char *, const char *, unsigned int flags);
+	int (*rename)(const char *, const char *, unsigned int flags);
 
 	/** Create a hard link to a file */
-	int (*link) (const char *, const char *);
+	int (*link)(const char *, const char *);
 
 	/** Change the permission bits of a file
 	 *
 	 * `fi` will always be NULL if the file is not currently open, but
 	 * may also be NULL if the file is open.
 	 */
-	int (*chmod) (const char *, mode_t, struct fuse_file_info *fi);
+	int (*chmod)(const char *, mode_t, struct fuse_file_info *fi);
 
 	/** Change the owner and group of a file
 	 *
@@ -424,7 +422,7 @@ struct fuse_operations {
 	 * Unless FUSE_CAP_HANDLE_KILLPRIV is disabled, this method is
 	 * expected to reset the setuid and setgid bits.
 	 */
-	int (*chown) (const char *, uid_t, gid_t, struct fuse_file_info *fi);
+	int (*chown)(const char *, uid_t, gid_t, struct fuse_file_info *fi);
 
 	/** Change the size of a file
 	 *
@@ -434,7 +432,7 @@ struct fuse_operations {
 	 * Unless FUSE_CAP_HANDLE_KILLPRIV is disabled, this method is
 	 * expected to reset the setuid and setgid bits.
 	 */
-	int (*truncate) (const char *, off_t, struct fuse_file_info *fi);
+	int (*truncate)(const char *, off_t, struct fuse_file_info *fi);
 
 	/** Open a file
 	 *
@@ -483,7 +481,7 @@ struct fuse_operations {
 	 * to the filesystem process.
 	 *
 	 */
-	int (*open) (const char *, struct fuse_file_info *);
+	int (*open)(const char *, struct fuse_file_info *);
 
 	/** Read data from an open file
 	 *
@@ -494,8 +492,8 @@ struct fuse_operations {
 	 * value of the read system call will reflect the return value of
 	 * this operation.
 	 */
-	int (*read) (const char *, char *, size_t, off_t,
-		     struct fuse_file_info *);
+	int (*read)(const char *, char *, size_t, off_t,
+		    struct fuse_file_info *);
 
 	/** Write data to an open file
 	 *
@@ -506,14 +504,14 @@ struct fuse_operations {
 	 * Unless FUSE_CAP_HANDLE_KILLPRIV is disabled, this method is
 	 * expected to reset the setuid and setgid bits.
 	 */
-	int (*write) (const char *, const char *, size_t, off_t,
-		      struct fuse_file_info *);
+	int (*write)(const char *, const char *, size_t, off_t,
+		     struct fuse_file_info *);
 
 	/** Get file system statistics
 	 *
 	 * The 'f_favail', 'f_fsid' and 'f_flag' fields are ignored
 	 */
-	int (*statfs) (const char *, struct statvfs *);
+	int (*statfs)(const char *, struct statvfs *);
 
 	/** Possibly flush cached data
 	 *
@@ -543,7 +541,7 @@ struct fuse_operations {
 	 *
 	 * [close]: http://pubs.opengroup.org/onlinepubs/9699919799/functions/close.html
 	 */
-	int (*flush) (const char *, struct fuse_file_info *);
+	int (*flush)(const char *, struct fuse_file_info *);
 
 	/** Release an open file
 	 *
@@ -557,26 +555,26 @@ struct fuse_operations {
 	 * release will mean, that no more reads/writes will happen on the
 	 * file.  The return value of release is ignored.
 	 */
-	int (*release) (const char *, struct fuse_file_info *);
+	int (*release)(const char *, struct fuse_file_info *);
 
 	/** Synchronize file contents
 	 *
 	 * If the datasync parameter is non-zero, then only the user data
 	 * should be flushed, not the meta data.
 	 */
-	int (*fsync) (const char *, int, struct fuse_file_info *);
+	int (*fsync)(const char *, int, struct fuse_file_info *);
 
 	/** Set extended attributes */
-	int (*setxattr) (const char *, const char *, const char *, size_t, int);
+	int (*setxattr)(const char *, const char *, const char *, size_t, int);
 
 	/** Get extended attributes */
-	int (*getxattr) (const char *, const char *, char *, size_t);
+	int (*getxattr)(const char *, const char *, char *, size_t);
 
 	/** List extended attributes */
-	int (*listxattr) (const char *, char *, size_t);
+	int (*listxattr)(const char *, char *, size_t);
 
 	/** Remove extended attributes */
-	int (*removexattr) (const char *, const char *);
+	int (*removexattr)(const char *, const char *);
 
 	/** Open directory
 	 *
@@ -586,7 +584,7 @@ struct fuse_operations {
 	 * filehandle in the fuse_file_info structure, which will be
 	 * passed to readdir, releasedir and fsyncdir.
 	 */
-	int (*opendir) (const char *, struct fuse_file_info *);
+	int (*opendir)(const char *, struct fuse_file_info *);
 
 	/** Read directory
 	 *
@@ -610,15 +608,15 @@ struct fuse_operations {
 	 * used. The other fields are ignored when FUSE_READDIR_PLUS is not
 	 * set.
 	 */
-	int (*readdir) (const char *, void *, fuse_fill_dir_t, off_t,
-			struct fuse_file_info *, enum fuse_readdir_flags);
+	int (*readdir)(const char *, void *, fuse_fill_dir_t, off_t,
+		       struct fuse_file_info *, enum fuse_readdir_flags);
 
 	/** Release directory
 	 *
 	 * If the directory has been removed after the call to opendir, the
 	 * path parameter will be NULL.
 	 */
-	int (*releasedir) (const char *, struct fuse_file_info *);
+	int (*releasedir)(const char *, struct fuse_file_info *);
 
 	/** Synchronize directory contents
 	 *
@@ -628,7 +626,7 @@ struct fuse_operations {
 	 * If the datasync parameter is non-zero, then only the user data
 	 * should be flushed, not the meta data
 	 */
-	int (*fsyncdir) (const char *, int, struct fuse_file_info *);
+	int (*fsyncdir)(const char *, int, struct fuse_file_info *);
 
 	/**
 	 * Initialize filesystem
@@ -638,15 +636,14 @@ struct fuse_operations {
 	 * parameter to the destroy() method. It overrides the initial
 	 * value provided to fuse_main() / fuse_new().
 	 */
-	void *(*init) (struct fuse_conn_info *conn,
-		       struct fuse_config *cfg);
+	void *(*init)(struct fuse_conn_info *conn, struct fuse_config *cfg);
 
 	/**
 	 * Clean up filesystem
 	 *
 	 * Called on filesystem exit.
 	 */
-	void (*destroy) (void *private_data);
+	void (*destroy)(void *private_data);
 
 	/**
 	 * Check file access permissions
@@ -657,7 +654,7 @@ struct fuse_operations {
 	 *
 	 * This method is not called under Linux kernel versions 2.4.x
 	 */
-	int (*access) (const char *, int);
+	int (*access)(const char *, int);
 
 	/**
 	 * Create and open a file
@@ -669,7 +666,7 @@ struct fuse_operations {
 	 * versions earlier than 2.6.15, the mknod() and open() methods
 	 * will be called instead.
 	 */
-	int (*create) (const char *, mode_t, struct fuse_file_info *);
+	int (*create)(const char *, mode_t, struct fuse_file_info *);
 
 	/**
 	 * Perform POSIX file locking operation
@@ -701,8 +698,8 @@ struct fuse_operations {
 	 * allow file locking to work locally.  Hence it is only
 	 * interesting for network filesystems and similar.
 	 */
-	int (*lock) (const char *, struct fuse_file_info *, int cmd,
-		     struct flock *);
+	int (*lock)(const char *, struct fuse_file_info *, int cmd,
+		    struct flock *);
 
 	/**
 	 * Change the access and modification times of a file with
@@ -716,8 +713,8 @@ struct fuse_operations {
 	 *
 	 * See the utimensat(2) man page for details.
 	 */
-	 int (*utimens) (const char *, const struct timespec tv[2],
-			 struct fuse_file_info *fi);
+	int (*utimens)(const char *, const struct timespec tv[2],
+		       struct fuse_file_info *fi);
 
 	/**
 	 * Map block index within file to block index within device
@@ -725,11 +722,11 @@ struct fuse_operations {
 	 * Note: This makes sense only for block device backed filesystems
 	 * mounted with the 'blkdev' option
 	 */
-	int (*bmap) (const char *, size_t blocksize, uint64_t *idx);
+	int (*bmap)(const char *, size_t blocksize, uint64_t *idx);
 
 #if FUSE_USE_VERSION < 35
-	int (*ioctl) (const char *, int cmd, void *arg,
-		      struct fuse_file_info *, unsigned int flags, void *data);
+	int (*ioctl)(const char *, int cmd, void *arg, struct fuse_file_info *,
+		     unsigned int flags, void *data);
 #else
 	/**
 	 * Ioctl
@@ -747,8 +744,8 @@ struct fuse_operations {
 	 * Note : the unsigned long request submitted by the application
 	 * is truncated to 32 bits.
 	 */
-	int (*ioctl) (const char *, unsigned int cmd, void *arg,
-		      struct fuse_file_info *, unsigned int flags, void *data);
+	int (*ioctl)(const char *, unsigned int cmd, void *arg,
+		     struct fuse_file_info *, unsigned int flags, void *data);
 #endif
 
 	/**
@@ -766,8 +763,8 @@ struct fuse_operations {
 	 * The callee is responsible for destroying ph with
 	 * fuse_pollhandle_destroy() when no longer in use.
 	 */
-	int (*poll) (const char *, struct fuse_file_info *,
-		     struct fuse_pollhandle *ph, unsigned *reventsp);
+	int (*poll)(const char *, struct fuse_file_info *,
+		    struct fuse_pollhandle *ph, unsigned *reventsp);
 
 	/** Write contents of buffer to an open file
 	 *
@@ -778,8 +775,8 @@ struct fuse_operations {
 	 * Unless FUSE_CAP_HANDLE_KILLPRIV is disabled, this method is
 	 * expected to reset the setuid and setgid bits.
 	 */
-	int (*write_buf) (const char *, struct fuse_bufvec *buf, off_t off,
-			  struct fuse_file_info *);
+	int (*write_buf)(const char *, struct fuse_bufvec *buf, off_t off,
+			 struct fuse_file_info *);
 
 	/** Store data from an open file in a buffer
 	 *
@@ -795,8 +792,8 @@ struct fuse_operations {
 	 * regions, they too must be allocated using malloc().  The
 	 * allocated memory will be freed by the caller.
 	 */
-	int (*read_buf) (const char *, struct fuse_bufvec **bufp,
-			 size_t size, off_t off, struct fuse_file_info *);
+	int (*read_buf)(const char *, struct fuse_bufvec **bufp, size_t size,
+			off_t off, struct fuse_file_info *);
 	/**
 	 * Perform BSD file locking operation
 	 *
@@ -815,7 +812,7 @@ struct fuse_operations {
 	 * allow file locking to work locally.  Hence it is only
 	 * interesting for network filesystems and similar.
 	 */
-	int (*flock) (const char *, struct fuse_file_info *, int op);
+	int (*flock)(const char *, struct fuse_file_info *, int op);
 
 	/**
 	 * Allocates space for an open file
@@ -825,8 +822,8 @@ struct fuse_operations {
 	 * request to specified range is guaranteed not to fail because of lack
 	 * of space on the file system media.
 	 */
-	int (*fallocate) (const char *, int, off_t, off_t,
-			  struct fuse_file_info *);
+	int (*fallocate)(const char *, int, off_t, off_t,
+			 struct fuse_file_info *);
 
 	/**
 	 * Copy a range of data from one file to another
@@ -840,16 +837,17 @@ struct fuse_operations {
 	 * emulation automatically, but the emulation has been removed from all
 	 * glibc release branches.)
 	 */
-	ssize_t (*copy_file_range) (const char *path_in,
-				    struct fuse_file_info *fi_in,
-				    off_t offset_in, const char *path_out,
-				    struct fuse_file_info *fi_out,
-				    off_t offset_out, size_t size, int flags);
+	ssize_t (*copy_file_range)(const char *path_in,
+				   struct fuse_file_info *fi_in,
+				   off_t offset_in, const char *path_out,
+				   struct fuse_file_info *fi_out,
+				   off_t offset_out, size_t size, int flags);
 
 	/**
 	 * Find next data or hole after the specified offset
 	 */
-	off_t (*lseek) (const char *, off_t off, int whence, struct fuse_file_info *);
+	off_t (*lseek)(const char *, off_t off, int whence,
+		       struct fuse_file_info *);
 };
 
 /** Extra context that may be needed by some filesystems
@@ -960,12 +958,10 @@ static inline int fuse_main_fn(int argc, char *argv[],
 			       const struct fuse_operations *op,
 			       void *user_data)
 {
-	struct libfuse_version version = {
-		.major  = FUSE_MAJOR_VERSION,
-		.minor  = FUSE_MINOR_VERSION,
-		.hotfix = FUSE_HOTFIX_VERSION,
-		.padding = 0
-	};
+	struct libfuse_version version = { .major = FUSE_MAJOR_VERSION,
+					   .minor = FUSE_MINOR_VERSION,
+					   .hotfix = FUSE_HOTFIX_VERSION,
+					   .padding = 0 };
 
 	return fuse_main_real_versioned(argc, argv, op, sizeof(*(op)), &version,
 					user_data);
@@ -1030,12 +1026,10 @@ static inline struct fuse *fuse_new_fn(struct fuse_args *args,
 				       const struct fuse_operations *op,
 				       size_t op_size, void *user_data)
 {
-	struct libfuse_version version = {
-		.major = FUSE_MAJOR_VERSION,
-		.minor = FUSE_MINOR_VERSION,
-		.hotfix = FUSE_HOTFIX_VERSION,
-		.padding = 0
-	};
+	struct libfuse_version version = { .major = FUSE_MAJOR_VERSION,
+					   .minor = FUSE_MINOR_VERSION,
+					   .hotfix = FUSE_HOTFIX_VERSION,
+					   .padding = 0 };
 
 	return _fuse_new_30(args, op, op_size, &version, user_data);
 }
@@ -1044,12 +1038,10 @@ static inline struct fuse *fuse_new_fn(struct fuse_args *args,
 				       const struct fuse_operations *op,
 				       size_t op_size, void *user_data)
 {
-	struct libfuse_version version = {
-		.major = FUSE_MAJOR_VERSION,
-		.minor = FUSE_MINOR_VERSION,
-		.hotfix = FUSE_HOTFIX_VERSION,
-		.padding = 0
-	};
+	struct libfuse_version version = { .major = FUSE_MAJOR_VERSION,
+					   .minor = FUSE_MINOR_VERSION,
+					   .hotfix = FUSE_HOTFIX_VERSION,
+					   .padding = 0 };
 
 	return _fuse_new_31(args, op, op_size, &version, user_data);
 }
@@ -1157,7 +1149,6 @@ int fuse_loop_mt(struct fuse *f, struct fuse_loop_config *config);
 #endif /* LIBFUSE_BUILT_WITH_VERSIONED_SYMBOLS */
 #endif
 
-
 /**
  * Get the current context
  *
@@ -1258,14 +1249,13 @@ struct fuse_fs;
 
 int fuse_fs_getattr(struct fuse_fs *fs, const char *path, struct stat *buf,
 		    struct fuse_file_info *fi);
-int fuse_fs_rename(struct fuse_fs *fs, const char *oldpath,
-		   const char *newpath, unsigned int flags);
+int fuse_fs_rename(struct fuse_fs *fs, const char *oldpath, const char *newpath,
+		   unsigned int flags);
 int fuse_fs_unlink(struct fuse_fs *fs, const char *path);
 int fuse_fs_rmdir(struct fuse_fs *fs, const char *path);
-int fuse_fs_symlink(struct fuse_fs *fs, const char *linkname,
-		    const char *path);
+int fuse_fs_symlink(struct fuse_fs *fs, const char *linkname, const char *path);
 int fuse_fs_link(struct fuse_fs *fs, const char *oldpath, const char *newpath);
-int fuse_fs_release(struct fuse_fs *fs,	 const char *path,
+int fuse_fs_release(struct fuse_fs *fs, const char *path,
 		    struct fuse_file_info *fi);
 int fuse_fs_open(struct fuse_fs *fs, const char *path,
 		 struct fuse_file_info *fi);
@@ -1319,14 +1309,12 @@ int fuse_fs_getxattr(struct fuse_fs *fs, const char *path, const char *name,
 		     char *value, size_t size);
 int fuse_fs_listxattr(struct fuse_fs *fs, const char *path, char *list,
 		      size_t size);
-int fuse_fs_removexattr(struct fuse_fs *fs, const char *path,
-			const char *name);
+int fuse_fs_removexattr(struct fuse_fs *fs, const char *path, const char *name);
 int fuse_fs_bmap(struct fuse_fs *fs, const char *path, size_t blocksize,
 		 uint64_t *idx);
 #if FUSE_USE_VERSION < 35
-int fuse_fs_ioctl(struct fuse_fs *fs, const char *path, int cmd,
-		  void *arg, struct fuse_file_info *fi, unsigned int flags,
-		  void *data);
+int fuse_fs_ioctl(struct fuse_fs *fs, const char *path, int cmd, void *arg,
+		  struct fuse_file_info *fi, unsigned int flags, void *data);
 #else
 int fuse_fs_ioctl(struct fuse_fs *fs, const char *path, unsigned int cmd,
 		  void *arg, struct fuse_file_info *fi, unsigned int flags,
@@ -1336,7 +1324,7 @@ int fuse_fs_poll(struct fuse_fs *fs, const char *path,
 		 struct fuse_file_info *fi, struct fuse_pollhandle *ph,
 		 unsigned *reventsp);
 int fuse_fs_fallocate(struct fuse_fs *fs, const char *path, int mode,
-		 off_t offset, off_t length, struct fuse_file_info *fi);
+		      off_t offset, off_t length, struct fuse_file_info *fi);
 ssize_t fuse_fs_copy_file_range(struct fuse_fs *fs, const char *path_in,
 				struct fuse_file_info *fi_in, off_t off_in,
 				const char *path_out,
@@ -1345,7 +1333,7 @@ ssize_t fuse_fs_copy_file_range(struct fuse_fs *fs, const char *path_in,
 off_t fuse_fs_lseek(struct fuse_fs *fs, const char *path, off_t off, int whence,
 		    struct fuse_file_info *fi);
 void fuse_fs_init(struct fuse_fs *fs, struct fuse_conn_info *conn,
-		struct fuse_config *cfg);
+		  struct fuse_config *cfg);
 void fuse_fs_destroy(struct fuse_fs *fs);
 
 int fuse_notify_poll(struct fuse_pollhandle *ph);
@@ -1393,7 +1381,7 @@ typedef struct fuse_fs *(*fuse_module_factory_t)(struct fuse_args *args,
  * @param factory_ the factory function for this filesystem module
  */
 #define FUSE_REGISTER_MODULE(name_, factory_) \
-	fuse_module_factory_t fuse_module_ ## name_ ## _factory = factory_
+	fuse_module_factory_t fuse_module_##name_##_factory = factory_
 
 /** Get session from fuse object */
 struct fuse_session *fuse_get_session(struct fuse *f);

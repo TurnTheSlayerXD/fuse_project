@@ -19,6 +19,9 @@
         "functional": "c",
         "netdb.h": "c",
         "curl.h": "c",
-        "cstring": "c"
+        "cstring": "c",
+        "fuse.h": "c",
+        "stdio.h": "c",
+        "fuse_common.h": "c"
     }
 }

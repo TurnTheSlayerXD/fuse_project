@@ -55,7 +55,17 @@ void buffer_append(buffer *st, void *data, size_t size)
 void buffer_insert(buffer *st, size_t pos, void *data, size_t size)
 {
 
-    assert(false && "NOT IMPLEMENTED");
+    if (pos + size >= st->capacity)
+    {
+        st->capacity = pos + size;
+        st->ptr = realloc(st->ptr, st->capacity);
+    }
+    memcpy(st->ptr + pos, data, size);
+
+    if (st->size < pos + size)
+    {
+        st->size = pos + size;
+    }
 }
 
 void parse_response_field_from_json(char *dst, buffer *src, const char *field)

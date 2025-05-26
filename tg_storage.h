@@ -20,10 +20,6 @@ tg_storage tg_storage_new()
 
 void tg_storage_free(tg_storage *st)
 {
-    for (int i = 0; i < st->size; ++i)
-    {
-        free(st->files[i].path);
-    }
     free(st->files);
     memset(st, 0, sizeof(tg_storage));
 }

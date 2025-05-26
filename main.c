@@ -147,7 +147,7 @@ int hello_write(const char *path, const char *buf, size_t size, off_t offset, st
 
     if (!(file = tg_storage_find_by_path(&storage, path)) || file->type == TG_DIR)
     {
-        if_no = tg_file_new_file(path);
+        if_no = tg_file_new_file(path, offset + size);
         tg_storage_push(&storage, if_no);
         file = &if_no;
 
