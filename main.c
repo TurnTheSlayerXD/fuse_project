@@ -7,9 +7,11 @@
 #include <fcntl.h>
 #include <stddef.h>
 #include <assert.h>
-#include "tg_structs.h"
+#include <tg_file.h>
+#include <tg_storage.h>
 
 static tg_storage storage;
+static tg_config config;
 
 static void *hello_init(struct fuse_conn_info *conn,
                         struct fuse_config *cfg)
@@ -44,7 +46,7 @@ static int hello_getattr(const char *path, struct stat *stbuf,
         {
             stbuf->st_mode = S_IFREG | 0777;
             stbuf->st_nlink = 1;
-            stbuf->st_size = strlen(file->contents);
+            stbuf->st_size = file->file_size;
         }
         else if (file->type == TG_DIR)
         {
@@ -69,19 +71,7 @@ static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
     tg_file *tg_dir;
 
-    if (strcmp(path, "/") == 0)
-    {
-        for (int i = 0; i < storage.size; ++i)
-        {
-            if (strrchr(storage.files[i].path, '/') == storage.files[i].path)
-            {
-                filler(buf, storage.files[i].path + 1, NULL, 0, FUSE_FILL_DIR_DEFAULTS);
-            }
-        }
-        return 0;
-    }
-
-    else if ((tg_dir = tg_storage_find_by_path(&storage, path)))
+    if ((tg_dir = tg_storage_find_by_path(&storage, path)))
     {
         if (tg_dir->type != TG_DIR)
         {
@@ -121,7 +111,6 @@ static int hello_open(const char *path, struct fuse_file_info *fi)
 static int hello_read(const char *path, char *buf, size_t size, off_t offset,
                       struct fuse_file_info *fi)
 {
-    size_t len;
     (void)fi;
 
     tg_file *file = tg_storage_find_by_path(&storage, path);
@@ -129,17 +118,21 @@ static int hello_read(const char *path, char *buf, size_t size, off_t offset,
     if (!file)
         return -ENOENT;
 
-    len = strlen(file->contents);
+    buffer src = tg_file_load_contents(&config, file);
+
+    size_t len = src.size;
     if (offset < len)
     {
         if (offset + size > len)
             size = len - offset;
-        memcpy(buf, file->contents + offset, size);
+        memcpy(buf, src.ptr + offset, size);
     }
     else
     {
         size = 0;
     }
+
+    buffer_free(&buf);
 
     return size;
 }
@@ -148,19 +141,28 @@ int hello_write(const char *path, const char *buf, size_t size, off_t offset, st
 {
 
     tg_file *file;
+    tg_file if_no;
+
+    buffer data;
+
     if (!(file = tg_storage_find_by_path(&storage, path)) || file->type == TG_DIR)
     {
-        return -ENOENT;
+        if_no = tg_file_new_file(path);
+        tg_storage_push(&storage, if_no);
+        file = &if_no;
+
+        data = buffer_new();
     }
-
-    int cur_len = strlen(file->contents);
-
-    if (cur_len < offset + size)
+    else
     {
-        file->contents = realloc(file->contents, sizeof(char) * (offset + size + cur_len));
+        data = tg_file_load_contents(&config, file);
     }
-    memcpy(file->contents + offset, buf, size);
-    file->contents[offset + size] = '\0';
+
+    buffer_insert(&data, offset, buf, size);
+
+    tg_put_file(file, &config, &data);
+
+    buffer_free(&data);
 
     return size;
 }
@@ -187,34 +189,10 @@ int main(int argc, char **argv)
 
     storage = tg_storage_new();
 
-    tg_storage_push(&storage, (tg_file){
-                                  .path = strdup("/hello.txt"),
-                                  .contents = strdup("hello world\n"),
-                                  .type = TG_FILE,
-                              });
-    tg_storage_push(&storage, (tg_file){
-                                  .path = strdup("/by.txt"),
-                                  .contents = strdup("by world\n"),
-                                  .type = TG_FILE,
-                              });
-    tg_storage_push(&storage, (tg_file){
-                                  .path = strdup("/tg_dir"),
-                                  .contents = NULL,
-                                  .type = TG_DIR,
-                              });
-
-    tg_storage_push(&storage, (tg_file){
-                                  .path = strdup("/tg_dir/hello.txt"),
-                                  .contents = strdup("by world\n"),
-                                  .type = TG_FILE,
-                              });
+    tg_storage_push(&storage, tg_file_new_dir("/"));
 
     fprintf(stderr, "MARK\n");
 
-    for (int i = 0; i < storage.size; ++i)
-    {
-        fprintf(stderr, "%s\n", storage.files[i].contents);
-    }
     fprintf(stderr, "END\n");
     // tg_storage_free(&storage);
 

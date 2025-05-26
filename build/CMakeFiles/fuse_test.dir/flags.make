@@ -4,7 +4,7 @@
 # compile C with /usr/bin/cc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/andreybazhura/fuse_project/./fuse-3.17.2/include -I/home/andreybazhura/fuse_project/./fuse-3.17.2/build
+C_INCLUDES = -I/home/andreybazhura/fuse_project/./fuse-3.17.2/include -I/home/andreybazhura/fuse_project/./fuse-3.17.2/build -I/home/andreybazhura/fuse_project/.
 
 C_FLAGS = -g
 

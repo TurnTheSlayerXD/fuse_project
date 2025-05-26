@@ -18,6 +18,7 @@
         "streambuf": "c",
         "functional": "c",
         "netdb.h": "c",
-        "curl.h": "c"
+        "curl.h": "c",
+        "cstring": "c"
     }
 }
