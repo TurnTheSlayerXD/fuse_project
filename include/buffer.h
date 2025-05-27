@@ -60,22 +60,52 @@ void buffer_insert(buffer *st, size_t pos, const void *data, size_t size)
     }
 }
 
-void parse_response_field_from_json(char *dst, buffer *src, const char *field)
+int parse_response_field_from_json(char *dst, const char *src, const char *field)
 {
-    const char *p = strstr(src->ptr, field);
+
+    const char *p = strstr(src, field);
     p += strlen(field) + 2;
 
-    bool is_quoted = false;
-    is_quoted = *p == '\"';
+    bool is_quoted = *p == '\"';
 
     if (is_quoted)
     {
-        strncpy(dst, p + 1, strchr(p, ',') - 1 - p);
+        char *e = strpbrk(p, ",}");
+        if (!e)
+        {
+            strcpy(dst, "ERROR PARSING JSON");
+        }
+        else
+        {
+            strncpy(dst, p + 1, e - p - 2);
+        }
     }
     else
     {
-        strncpy(dst, p, strchr(p, ',') - p);
+        char *e = strpbrk(p, ",}");
+        if (!e)
+        {
+            strcpy(dst, "ERROR PARSING JSON");
+        }
+        else
+        {
+            strncpy(dst, p, e - p);
+        }
     }
+}
+
+bool check_ok_status_in_json(const char *json_response_buf)
+{
+    char is_ok[100];
+    memset(is_ok, 0, 100);
+    parse_response_field_from_json(is_ok, json_response_buf, "ok");
+
+    fuse_log(FUSE_LOG_DEBUG, "%s\n", is_ok);
+    if (strcmp(is_ok, "true") == 0)
+    {
+        return true;
+    }
+    return false;
 }
 
 #endif // BUFFER_H

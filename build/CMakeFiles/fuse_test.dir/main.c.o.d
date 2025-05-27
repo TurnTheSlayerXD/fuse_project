@@ -1,13 +1,13 @@
-CMakeFiles/fuse_test.dir/main.c.o: /home/andrew/fuse_project/main.c \
- /usr/include/stdc-predef.h \
- /home/andrew/fuse_project/./fuse-3.17.2/include/fuse.h \
- /home/andrew/fuse_project/./fuse-3.17.2/include/fuse_common.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h \
- /home/andrew/fuse_project/./fuse-3.17.2/build/libfuse_config.h \
- /home/andrew/fuse_project/./fuse-3.17.2/include/fuse_opt.h \
- /home/andrew/fuse_project/./fuse-3.17.2/include/fuse_log.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stdint.h /usr/include/stdint.h \
+CMakeFiles/fuse_test.dir/main.c.o: \
+ /home/andreybazhura/fuse_project/main.c /usr/include/stdc-predef.h \
+ /home/andreybazhura/fuse_project/./fuse-3.17.2/include/fuse.h \
+ /home/andreybazhura/fuse_project/./fuse-3.17.2/include/fuse_common.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
+ /home/andreybazhura/fuse_project/./fuse-3.17.2/build/libfuse_config.h \
+ /home/andreybazhura/fuse_project/./fuse-3.17.2/include/fuse_opt.h \
+ /home/andreybazhura/fuse_project/./fuse-3.17.2/include/fuse_log.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h /usr/include/stdint.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
  /usr/include/features.h /usr/include/features-time64.h \
  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
@@ -22,12 +22,13 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andrew/fuse_project/main.c \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
  /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+ /usr/include/x86_64-linux-gnu/bits/stdint-least.h \
  /usr/include/x86_64-linux-gnu/sys/types.h \
  /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h /usr/include/endian.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h /usr/include/endian.h \
  /usr/include/x86_64-linux-gnu/bits/endian.h \
  /usr/include/x86_64-linux-gnu/bits/endianness.h \
  /usr/include/x86_64-linux-gnu/bits/byteswap.h \
@@ -65,6 +66,7 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andrew/fuse_project/main.c \
  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+ /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
  /usr/include/x86_64-linux-gnu/bits/floatn-common.h /usr/include/string.h \
@@ -72,15 +74,16 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andrew/fuse_project/main.c \
  /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
  /usr/include/x86_64-linux-gnu/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /home/andrew/fuse_project/./include/tg_file.h /usr/include/stdlib.h \
- /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+ /home/andreybazhura/fuse_project/./include/tg_file.h \
+ /home/andreybazhura/fuse_project/./include/tg_logger.h \
+ /usr/include/stdlib.h /usr/include/x86_64-linux-gnu/bits/waitflags.h \
  /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/alloca.h \
  /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /home/andrew/fuse_project/./include/tg_config.h \
- /home/andrew/fuse_project/./include/buffer.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/curl.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/curlver.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/system.h \
+ /home/andreybazhura/fuse_project/./include/tg_config.h \
+ /home/andreybazhura/fuse_project/./include/buffer.h \
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/curl.h \
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/curlver.h \
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/system.h \
  /usr/include/x86_64-linux-gnu/sys/socket.h \
  /usr/include/x86_64-linux-gnu/bits/socket.h \
  /usr/include/x86_64-linux-gnu/bits/socket_type.h \
@@ -96,8 +99,8 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andrew/fuse_project/main.c \
  /usr/include/x86_64-linux-gnu/asm/sockios.h \
  /usr/include/asm-generic/sockios.h \
  /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h \
+ /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h \
  /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
  /usr/include/x86_64-linux-gnu/bits/local_lim.h \
  /usr/include/linux/limits.h \
@@ -105,13 +108,13 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andrew/fuse_project/main.c \
  /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h \
  /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
  /usr/include/x86_64-linux-gnu/sys/time.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/easy.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/multi.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/curl.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/urlapi.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/options.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/header.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/websockets.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/mprintf.h \
- /home/andrew/fuse_project/./curl-8.13.0/include/curl/typecheck-gcc.h \
- /home/andrew/fuse_project/./include/tg_storage.h
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/easy.h \
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/multi.h \
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/curl.h \
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/urlapi.h \
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/options.h \
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/header.h \
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/websockets.h \
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/mprintf.h \
+ /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/typecheck-gcc.h \
+ /home/andreybazhura/fuse_project/./include/tg_storage.h

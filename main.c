@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <stddef.h>
 #include <assert.h>
+
 #include <tg_file.h>
 #include <tg_storage.h>
 
@@ -71,6 +72,7 @@ static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     (void)fi;
     (void)flags;
 
+    fuse_log(FUSE_LOG_DEBUG, "Entered read callback\n");
     tg_file *tg_dir;
 
     if ((tg_dir = tg_storage_find_by_path(&storage, path)))
@@ -122,6 +124,11 @@ static int hello_read(const char *path, char *buf, size_t size, off_t offset,
 
     buffer src = tg_file_load_contents(&config, file);
 
+    if (src.size == 0)
+    {
+        return -ENOENT;
+    }
+
     size_t len = src.size;
     if (offset < len)
     {
@@ -149,7 +156,6 @@ int hello_write(const char *path, const char *buf, size_t size, off_t offset, st
 
     if (!(file = tg_storage_find_by_path(&storage, path)))
     {
-
         if_no = tg_file_new_file(path, offset + size);
         tg_storage_push(&storage, if_no);
         file = &if_no;
@@ -166,6 +172,8 @@ int hello_write(const char *path, const char *buf, size_t size, off_t offset, st
     }
 
     buffer_insert(&data, offset, buf, size);
+
+    fuse_log(FUSE_LOG_DEBUG, "Wrting at offset [%d]\n\n", offset);
 
     tg_put_file(file, &config, &data);
 
@@ -197,15 +205,18 @@ int main(int argc, char **argv)
 
     storage = tg_storage_new();
 
-    config = tg_config_new("-1002556273060", "6947966209:AAEklSLutFkdTgdfIywyXhK3VrsNISYOWcc");
+    config = tg_config_new("-1002556273060", "6947966209:AAGuVGoVPuU-KK3QjvY-3lr_D3zQgujRwyo");
 
     tg_storage_push(&storage, tg_file_new_dir("/"));
+
+    tg_storage_push(&storage, tg_file_full_new_file("/some_file.txt",
+                                                    "BQACAgIAAyEGAASYXaGkAAMOaDScyFhnAAG5UdfGHhM8aQjx_YxPAAKAeQACaH2hSYd8EUUtHW2xNgQ",
+                                                    "14",
+                                                    12));
 
     fprintf(stderr, "MARK\n");
 
     fprintf(stderr, "END\n");
-
-    tg_storage_free(&storage);
 
     ret = fuse_main(args.argc, args.argv, &hello_oper, NULL);
 

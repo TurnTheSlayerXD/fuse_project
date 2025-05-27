@@ -1,1 +1,1 @@
-/usr/bin/cc -g CMakeFiles/fuse_test.dir/main.c.o -o fuse_test  -Wl,-rpath,/home/andrew/fuse_project/fuse-3.17.2/build/lib /usr/lib/x86_64-linux-gnu/libcurl.so.4.8.0 /home/andrew/fuse_project/fuse-3.17.2/build/lib/libfuse3.so.3.17.2 
+/usr/bin/cc -g CMakeFiles/fuse_test.dir/main.c.o -o fuse_test  -Wl,-rpath,/home/andreybazhura/fuse_project/fuse-3.17.2/build/lib /usr/lib/x86_64-linux-gnu/libcurl.so.4.8.0 /home/andreybazhura/fuse_project/fuse-3.17.2/build/lib/libfuse3.so.3.17.2 
