@@ -144,7 +144,6 @@ void tg_put_file(tg_file *file, tg_config *config, buffer *data)
             {
                 break;
             }
-
             parse_response_field_from_json(file->file_id, json_response_buf, "file_id");
             parse_response_field_from_json(file->message_id, json_response_buf, "message_id");
         }
@@ -171,7 +170,6 @@ void tg_put_file(tg_file *file, tg_config *config, buffer *data)
                 fuse_log(FUSE_LOG_DEBUG, "False status on FILE EDIT REQUEST: %s\n\n", json_response_buf);
                 break;
             }
-            file->file_size = data->size;
             memset(file->file_id, 0, FILE_ID_SIZE);
             parse_response_field_from_json(file->file_id, json_response_buf, "file_id");
         }

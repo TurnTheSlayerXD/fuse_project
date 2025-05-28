@@ -99,6 +99,22 @@ static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     return 0;
 }
 
+static int hello_create(const char *path, mode_t mode, struct fuse_file_info *fi)
+{
+    (void)mode;
+
+    tg_file *file;
+
+    if ((file = tg_storage_find_by_path(&storage, path)) && file->type == TG_DIR)
+    {
+        return -EISDIR;
+    }
+    tg_file new_file = tg_file_new_file(path, 0);
+
+    tg_storage_push(&storage, new_file);
+    return 0;
+}
+
 static int hello_open(const char *path, struct fuse_file_info *fi)
 {
 
@@ -166,18 +182,26 @@ int hello_write(const char *path, const char *buf, size_t size, off_t offset, st
     {
         return -ENOENT;
     }
-    else
+    else if (file->file_size > 0)
     {
         data = tg_file_load_contents(&config, file);
+    }
+    else
+    {
+        data = buffer_new();
     }
 
     buffer_insert(&data, offset, buf, size);
 
-    fuse_log(FUSE_LOG_DEBUG, "Wrting at offset [%d]\n\n", offset);
+    fuse_log(FUSE_LOG_DEBUG, "Writing at offset [%d]\n\n", offset);
 
     tg_put_file(file, &config, &data);
 
+    file->file_size = data.size;
+
     buffer_free(&data);
+
+    fuse_log(FUSE_LOG_DEBUG, "Writing at offset [%d]\n\n", offset);
 
     return size;
 }
@@ -196,6 +220,7 @@ static const struct fuse_operations hello_oper = {
     .read = hello_read,
     .write = hello_write,
     .destroy = hello_destroy,
+    .create = hello_create,
 };
 
 int main(int argc, char **argv)
