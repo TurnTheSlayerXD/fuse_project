@@ -8,7 +8,6 @@ add_compile_options(-Wall)
 add_compile_options(-Wextra)
 add_compile_options(-O2)
 
-set(CMAKE_BUILD_TYPE Debug)
 
 target_include_directories(fuse_test PUBLIC "./fuse-3.17.2/include")
 target_include_directories(fuse_test PUBLIC "./fuse-3.17.2/build")

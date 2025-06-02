@@ -1,1 +1,1 @@
-umount ./mountpoint && cmake --build . && ./fuse_test -f -s
+umount ./mountpoint && cmake --build . && ./fuse_test -f -s ./mountpoint

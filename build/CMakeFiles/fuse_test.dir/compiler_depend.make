@@ -36,6 +36,7 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andreybazhura/fuse_project/main.c \
   /usr/include/fcntl.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
+  /usr/include/inttypes.h \
   /usr/include/limits.h \
   /usr/include/linux/errno.h \
   /usr/include/linux/limits.h \
@@ -147,6 +148,8 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andreybazhura/fuse_project/main.c \
 
 /usr/include/x86_64-linux-gnu/sys/uio.h:
 
+/usr/include/x86_64-linux-gnu/sys/types.h:
+
 /usr/include/x86_64-linux-gnu/bits/errno.h:
 
 /usr/include/x86_64-linux-gnu/bits/byteswap.h:
@@ -193,6 +196,12 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andreybazhura/fuse_project/main.c \
 
 /usr/include/limits.h:
 
+/usr/include/inttypes.h:
+
+/usr/include/x86_64-linux-gnu/bits/endian.h:
+
+/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+
 /usr/include/time.h:
 
 /home/andreybazhura/fuse_project/fuse-3.17.2/build/libfuse_config.h:
@@ -213,8 +222,6 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andreybazhura/fuse_project/main.c \
 
 /home/andreybazhura/fuse_project/curl-8.13.0/include/curl/typecheck-gcc.h:
 
-/usr/include/x86_64-linux-gnu/bits/fcntl-linux.h:
-
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h:
 
 /home/andreybazhura/fuse_project/curl-8.13.0/include/curl/system.h:
@@ -227,9 +234,7 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andreybazhura/fuse_project/main.c \
 
 /home/andreybazhura/fuse_project/curl-8.13.0/include/curl/header.h:
 
-/usr/include/x86_64-linux-gnu/bits/endian.h:
-
-/usr/include/x86_64-linux-gnu/gnu/stubs.h:
+/usr/include/x86_64-linux-gnu/bits/fcntl-linux.h:
 
 /home/andreybazhura/fuse_project/curl-8.13.0/include/curl/urlapi.h:
 
@@ -402,5 +407,3 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andreybazhura/fuse_project/main.c \
 /usr/include/x86_64-linux-gnu/sys/statvfs.h:
 
 /usr/include/x86_64-linux-gnu/sys/time.h:
-
-/usr/include/x86_64-linux-gnu/sys/types.h:

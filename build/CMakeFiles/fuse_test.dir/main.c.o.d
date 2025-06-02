@@ -117,4 +117,5 @@ CMakeFiles/fuse_test.dir/main.c.o: \
  /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/websockets.h \
  /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/mprintf.h \
  /home/andreybazhura/fuse_project/./curl-8.13.0/include/curl/typecheck-gcc.h \
+ /usr/include/inttypes.h \
  /home/andreybazhura/fuse_project/./include/tg_storage.h

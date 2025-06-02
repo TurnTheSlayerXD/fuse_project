@@ -8,6 +8,7 @@
 #include <tg_config.h>
 #include <buffer.h>
 #include <curl.h>
+#include <inttypes.h>
 
 #define JSON_RESPONSE_BUF_SIZE 1024
 static char error_buffer[CURL_ERROR_SIZE];
@@ -57,7 +58,7 @@ static tg_file tg_file_full_new_file(const char *path, const char *file_id, cons
     return file;
 }
 
-static tg_file tg_file_new_dir(char *path)
+static tg_file tg_file_new_dir(const char *path)
 {
 
     tg_file file = (tg_file){.type = TG_DIR};
@@ -75,9 +76,33 @@ static void abort_if_error(CURLcode code)
     }
 }
 
-char *tg_file_get_filename(tg_file *file)
+void tg_file_extract_filename(char *dst, tg_file *file)
 {
-    return strrchr(file->path, '/') + 1;
+    char *ptr = strrchr(file->path, '/');
+    int64_t n = file->path + strlen(file->path) - ptr;
+    memcpy(dst, ptr + 1, n);
+    dst[n] = '\0';
+}
+
+void tg_file_extract_directory(char *dst, tg_file *file)
+{
+    if (file->type == TG_DIR)
+    {
+        assert(false && "Error: cannot extract directory from directory type");
+    }
+    const char *start = strchr(file->path, '/') + 1;
+    const char *end = strchr(start, '/');
+    if (end == NULL)
+    {
+        dst[0] = '/';
+        dst[1] = '\0';
+    }
+    else
+    {
+        int64_t n = end - start;
+        memcpy(dst, start, n);
+        dst[n] = '\0';
+    }
 }
 
 static size_t curl_response_file_writer(char *data, size_t size, size_t nmemb,
@@ -120,7 +145,10 @@ void tg_put_file(tg_file *file, tg_config *config, buffer *data)
     abort_if_error(code);
     code = curl_mime_data(part, data->ptr, data->size);
     abort_if_error(code);
-    code = curl_mime_filename(part, tg_file_get_filename(file));
+
+    char filename[100];
+    tg_file_extract_filename(filename, file);
+    code = curl_mime_filename(part, filename);
     abort_if_error(code);
     curl_easy_setopt(hnd, CURLOPT_MIMEPOST, multipart);
 
@@ -130,7 +158,12 @@ void tg_put_file(tg_file *file, tg_config *config, buffer *data)
         {
             char url[URL_SIZE];
 
-            sprintf(url, "https://api.telegram.org/bot%s/sendDocument?chat_id=%s", config->token, config->chat_id);
+            char directory[100];
+            tg_file_extract_directory(directory, file);
+
+            sprintf(url, "https://api.telegram.org/bot%s/sendDocument?chat_id=%s&caption=%s",
+                    config->token, config->chat_id, directory);
+
             curl_easy_setopt(hnd, CURLOPT_URL, url);
 
             code = curl_easy_perform(hnd);
@@ -138,7 +171,6 @@ void tg_put_file(tg_file *file, tg_config *config, buffer *data)
             if (code != CURLE_OK)
             {
             }
-            fuse_log(FUSE_LOG_DEBUG, "Response of file new: %s\n\n", json_response_buf);
 
             if (!check_ok_status_in_json(json_response_buf))
             {
@@ -152,10 +184,11 @@ void tg_put_file(tg_file *file, tg_config *config, buffer *data)
             const char *media = "{\"type\":\"document\",\"media\":\"attach://document\"}";
             char url[URL_SIZE];
 
-            sprintf(url, "https://api.telegram.org/bot%s/editMessageMedia?chat_id=%s&message_id=%s&media=%s",
-                    config->token, config->chat_id, file->message_id, media);
+            char directory[100];
+            tg_file_extract_directory(directory, file);
 
-            fuse_log(FUSE_LOG_DEBUG, "Sending url: %s\n\n", url);
+            sprintf(url, "https://api.telegram.org/bot%s/editMessageMedia?chat_id=%s&message_id=%s&media=%s&caption=%s",
+                    config->token, config->chat_id, file->message_id, media, directory);
 
             curl_easy_setopt(hnd, CURLOPT_URL, url);
             code = curl_easy_perform(hnd);
@@ -164,7 +197,7 @@ void tg_put_file(tg_file *file, tg_config *config, buffer *data)
             {
                 assert(false && "COULD NOT SEND PUT FILE REQUEST");
             }
-            fuse_log(FUSE_LOG_DEBUG, "Response on file edit: %s\n\n", json_response_buf);
+
             if (!check_ok_status_in_json(json_response_buf))
             {
                 fuse_log(FUSE_LOG_DEBUG, "False status on FILE EDIT REQUEST: %s\n\n", json_response_buf);
@@ -210,13 +243,9 @@ buffer tg_file_load_contents(tg_config *config, tg_file *src)
         char url[1000];
         sprintf(url, "https://api.telegram.org/bot%s/getFile?file_id=%s", config->token, src->file_id);
 
-        fuse_log(FUSE_LOG_DEBUG, "Sending url: %s\n\n", url);
-
         curl_easy_setopt(hnd, CURLOPT_URL, url);
 
         code = curl_easy_perform(hnd);
-
-        fuse_log(FUSE_LOG_DEBUG, "%s\n\n", json_response_buf);
 
         if (code != CURLE_OK)
         {
@@ -235,8 +264,6 @@ buffer tg_file_load_contents(tg_config *config, tg_file *src)
         memset(file_path, 0, FILE_PATH_SIZE);
         parse_response_field_from_json(file_path, json_response_buf, "file_path");
 
-        fuse_log(FUSE_LOG_DEBUG, "FILE PATH: [%s]\n", file_path);
-
         file_response_buf = buffer_new();
         curl_easy_setopt(hnd, CURLOPT_WRITEFUNCTION, curl_response_file_writer);
         curl_easy_setopt(hnd, CURLOPT_WRITEDATA, (void *)&file_response_buf);
@@ -251,7 +278,6 @@ buffer tg_file_load_contents(tg_config *config, tg_file *src)
             fuse_log(FUSE_LOG_DEBUG, "COULD NOT FETCH FILE\n\n");
             break;
         }
-        fuse_log(FUSE_LOG_DEBUG, "FETCH FILE RESULT : [%s]\n\n", file_response_buf.ptr);
 
         break;
     }

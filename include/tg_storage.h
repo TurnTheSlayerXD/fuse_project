@@ -63,10 +63,9 @@ tg_file *tg_storage_find_by_path(tg_storage *st, const char *path)
 
 int tg_storage_find_files_by_dir(tg_storage *st, const char *dir, int to_search_from)
 {
-
     for (int i = to_search_from; i < st->size; ++i)
     {
-        if (st->files[i].type == TG_FILE && strstr(st->files[i].path, dir) == st->files[i].path)
+        if (strcmp(st->files[i].path, dir) != 0 && strstr(st->files[i].path, dir) == st->files[i].path)
         {
             return i;
         }

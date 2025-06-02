@@ -32,6 +32,8 @@ static void *hello_init(struct fuse_conn_info *conn,
 static int hello_getattr(const char *path, struct stat *stbuf,
                          struct fuse_file_info *fi)
 {
+
+    fuse_log(FUSE_LOG_DEBUG, "GETATTR CALLED\n");
     (void)fi;
     int res = 0;
 
@@ -68,14 +70,15 @@ static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
                          off_t offset, struct fuse_file_info *fi,
                          enum fuse_readdir_flags flags)
 {
+    fuse_log(FUSE_LOG_DEBUG, "READDIR CALLED\n");
+
     (void)offset;
     (void)fi;
     (void)flags;
 
-    fuse_log(FUSE_LOG_DEBUG, "Entered read callback\n");
     tg_file *tg_dir;
 
-    if ((tg_dir = tg_storage_find_by_path(&storage, path)))
+    if (tg_dir = tg_storage_find_by_path(&storage, path))
     {
         if (tg_dir->type != TG_DIR)
         {
@@ -93,7 +96,14 @@ static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
     int i = -1;
     while ((i = tg_storage_find_files_by_dir(&storage, path, i + 1)) != -1)
     {
-        filler(buf, tg_file_get_filename(&storage.files[i]), NULL, 0, FUSE_FILL_DIR_DEFAULTS);
+        tg_file *cur = &storage.files[i];
+
+        char filename[100];
+        tg_file_extract_filename(filename, &storage.files[i]);
+
+        fuse_log(FUSE_LOG_DEBUG, "READDIR: reading [%s]\n", filename);
+
+        filler(buf, filename, NULL, 0, FUSE_FILL_DIR_DEFAULTS);
     }
 
     return 0;
@@ -101,6 +111,8 @@ static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
 static int hello_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 {
+    fuse_log(FUSE_LOG_DEBUG, "CREATE CALLED\n");
+
     (void)mode;
 
     tg_file *file;
@@ -118,6 +130,8 @@ static int hello_create(const char *path, mode_t mode, struct fuse_file_info *fi
 static int hello_open(const char *path, struct fuse_file_info *fi)
 {
 
+    fuse_log(FUSE_LOG_DEBUG, "OPEN CALLED\n");
+
     tg_file *file = tg_storage_find_by_path(&storage, path);
     if (!file)
         return -ENOENT;
@@ -131,6 +145,9 @@ static int hello_open(const char *path, struct fuse_file_info *fi)
 static int hello_read(const char *path, char *buf, size_t size, off_t offset,
                       struct fuse_file_info *fi)
 {
+
+    fuse_log(FUSE_LOG_DEBUG, "READ CALLED\n");
+
     (void)fi;
 
     tg_file *file = tg_storage_find_by_path(&storage, path);
@@ -164,6 +181,7 @@ static int hello_read(const char *path, char *buf, size_t size, off_t offset,
 
 int hello_write(const char *path, const char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
 {
+    fuse_log(FUSE_LOG_DEBUG, "WRITE CALLED\n");
 
     tg_file *file;
     tg_file if_no;
@@ -193,23 +211,29 @@ int hello_write(const char *path, const char *buf, size_t size, off_t offset, st
 
     buffer_insert(&data, offset, buf, size);
 
-    fuse_log(FUSE_LOG_DEBUG, "Writing at offset [%d]\n\n", offset);
-
     tg_put_file(file, &config, &data);
 
     file->file_size = data.size;
 
     buffer_free(&data);
 
-    fuse_log(FUSE_LOG_DEBUG, "Writing at offset [%d]\n\n", offset);
-
     return size;
 }
 
 static void hello_destroy(void *private_data)
 {
+
     (void)private_data;
     tg_storage_free(&storage);
+}
+
+static int hello_mkdir(const char *path, mode_t mode)
+{
+    fuse_log(FUSE_LOG_DEBUG, "Entered MKDIR cbk: path=[%s]\n", path);
+    tg_file dir = tg_file_new_dir(path);
+    tg_storage_push(&storage, dir);
+
+    return 0;
 }
 
 static const struct fuse_operations hello_oper = {
@@ -221,6 +245,7 @@ static const struct fuse_operations hello_oper = {
     .write = hello_write,
     .destroy = hello_destroy,
     .create = hello_create,
+    .mkdir = hello_mkdir,
 };
 
 int main(int argc, char **argv)
@@ -231,7 +256,6 @@ int main(int argc, char **argv)
     storage = tg_storage_new();
 
     config = tg_config_new("-1002556273060", "6947966209:AAGuVGoVPuU-KK3QjvY-3lr_D3zQgujRwyo");
-
     tg_storage_push(&storage, tg_file_new_dir("/"));
 
     tg_storage_push(&storage, tg_file_full_new_file("/some_file.txt",

@@ -6,5 +6,5 @@ C_DEFINES =
 
 C_INCLUDES = -I/home/andreybazhura/fuse_project/./fuse-3.17.2/include -I/home/andreybazhura/fuse_project/./fuse-3.17.2/build -I/home/andreybazhura/fuse_project/./curl-8.13.0/include/curl -I/home/andreybazhura/fuse_project/./include
 
-C_FLAGS = -g
+C_FLAGS = 
 

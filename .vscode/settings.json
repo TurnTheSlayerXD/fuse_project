@@ -23,5 +23,6 @@
         "fuse.h": "c",
         "stdio.h": "c",
         "fuse_common.h": "c"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
