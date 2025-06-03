@@ -61,13 +61,38 @@ tg_file *tg_storage_find_by_path(tg_storage *st, const char *path)
     return NULL;
 }
 
+tg_file tg_storage_remove_by_path(tg_storage *st, const char *path)
+{
+    for (int i = 0; i < st->size; ++i)
+    {
+        if (strcmp(st->files[i].path, path) == 0)
+        {
+            if (st->size == 0)
+            {
+                return (tg_file){0};
+            }
+            tg_file file = st->files[i];
+            st->files[i] = st->files[--st->size];
+            return file;
+        }
+    }
+
+    return (tg_file){0};
+}
+
 int tg_storage_find_files_by_dir(tg_storage *st, const char *dir, int to_search_from)
 {
     for (int i = to_search_from; i < st->size; ++i)
     {
-        if (strcmp(st->files[i].path, dir) != 0 && strstr(st->files[i].path, dir) == st->files[i].path)
+        if (strcmp(st->files[i].path, dir) != 0)
         {
-            return i;
+            char file_dir[100];
+            tg_file_extract_directory(file_dir, &st->files[i]);
+            fuse_log(FUSE_LOG_DEBUG, "tg_storage_find_files_by_dir [%s]\n", file_dir);
+            if (strcmp(file_dir, dir) == 0)
+            {
+                return i;
+            }
         }
     }
 

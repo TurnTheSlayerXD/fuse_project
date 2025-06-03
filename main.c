@@ -17,8 +17,6 @@ static tg_config config;
 static void *hello_init(struct fuse_conn_info *conn,
                         struct fuse_config *cfg)
 {
-    int x;
-
     (void)conn;
     cfg->kernel_cache = 1;
 
@@ -78,7 +76,7 @@ static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
     tg_file *tg_dir;
 
-    if (tg_dir = tg_storage_find_by_path(&storage, path))
+    if ((tg_dir = tg_storage_find_by_path(&storage, path)))
     {
         if (tg_dir->type != TG_DIR)
         {
@@ -99,7 +97,7 @@ static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
         tg_file *cur = &storage.files[i];
 
         char filename[100];
-        tg_file_extract_filename(filename, &storage.files[i]);
+        tg_file_extract_filename(filename, cur);
 
         fuse_log(FUSE_LOG_DEBUG, "READDIR: reading [%s]\n", filename);
 
@@ -111,6 +109,7 @@ static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
 
 static int hello_create(const char *path, mode_t mode, struct fuse_file_info *fi)
 {
+    (void)fi;
     fuse_log(FUSE_LOG_DEBUG, "CREATE CALLED\n");
 
     (void)mode;
@@ -129,7 +128,7 @@ static int hello_create(const char *path, mode_t mode, struct fuse_file_info *fi
 
 static int hello_open(const char *path, struct fuse_file_info *fi)
 {
-
+    (void)fi;
     fuse_log(FUSE_LOG_DEBUG, "OPEN CALLED\n");
 
     tg_file *file = tg_storage_find_by_path(&storage, path);
@@ -163,7 +162,7 @@ static int hello_read(const char *path, char *buf, size_t size, off_t offset,
     }
 
     size_t len = src.size;
-    if (offset < len)
+    if (offset < (off_t)len)
     {
         if (offset + size > len)
             size = len - offset;
@@ -181,6 +180,8 @@ static int hello_read(const char *path, char *buf, size_t size, off_t offset,
 
 int hello_write(const char *path, const char *buf, size_t size, off_t offset, struct fuse_file_info *fi)
 {
+    (void)fi;
+
     fuse_log(FUSE_LOG_DEBUG, "WRITE CALLED\n");
 
     tg_file *file;
@@ -229,10 +230,27 @@ static void hello_destroy(void *private_data)
 
 static int hello_mkdir(const char *path, mode_t mode)
 {
+
+    (void)mode;
+
     fuse_log(FUSE_LOG_DEBUG, "Entered MKDIR cbk: path=[%s]\n", path);
     tg_file dir = tg_file_new_dir(path);
     tg_storage_push(&storage, dir);
 
+    return 0;
+}
+
+int hello_unlink(const char *path)
+{
+    fuse_log(FUSE_LOG_DEBUG, "Entered UNLINK cbk: path=[%s]\n", path);
+    tg_file file = tg_storage_remove_by_path(&storage, path);
+
+    if (strlen(file.path) == 0)
+    {
+        return -ENOENT;
+    }
+
+    tg_remove_message_with_file(&config, &file);
     return 0;
 }
 
@@ -246,6 +264,7 @@ static const struct fuse_operations hello_oper = {
     .destroy = hello_destroy,
     .create = hello_create,
     .mkdir = hello_mkdir,
+    .unlink = hello_unlink,
 };
 
 int main(int argc, char **argv)
@@ -253,19 +272,10 @@ int main(int argc, char **argv)
     int ret;
     struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
 
+    config = tg_config_new("-1002556273060", "6947966209:AAGuVGoVPuU-KK3QjvY-3lr_D3zQgujRwyo");
     storage = tg_storage_new();
 
-    config = tg_config_new("-1002556273060", "6947966209:AAGuVGoVPuU-KK3QjvY-3lr_D3zQgujRwyo");
     tg_storage_push(&storage, tg_file_new_dir("/"));
-
-    tg_storage_push(&storage, tg_file_full_new_file("/some_file.txt",
-                                                    "BQACAgIAAyEGAASYXaGkAAMOaDScyFhnAAG5UdfGHhM8aQjx_YxPAAKAeQACaH2hSYd8EUUtHW2xNgQ",
-                                                    "14",
-                                                    12));
-
-    fprintf(stderr, "MARK\n");
-
-    fprintf(stderr, "END\n");
 
     ret = fuse_main(args.argc, args.argv, &hello_oper, NULL);
 

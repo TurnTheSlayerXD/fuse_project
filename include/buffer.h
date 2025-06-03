@@ -17,7 +17,7 @@ buffer buffer_new()
     return (buffer){.ptr = malloc(100), .size = 0, .capacity = 100};
 }
 
-buffer buffer_free(buffer *buf)
+void buffer_free(buffer *buf)
 {
     free(buf->ptr);
     memset(buf, 0, sizeof(buffer));
@@ -73,7 +73,7 @@ int parse_response_field_from_json(char *dst, const char *src, const char *field
         char *e = strpbrk(p, ",}");
         if (!e)
         {
-            strcpy(dst, "ERROR PARSING JSON");
+            return 1;
         }
         else
         {
@@ -85,26 +85,33 @@ int parse_response_field_from_json(char *dst, const char *src, const char *field
         char *e = strpbrk(p, ",}");
         if (!e)
         {
-            strcpy(dst, "ERROR PARSING JSON");
+            return 1;
         }
         else
         {
             strncpy(dst, p, e - p);
         }
     }
+    return 0;
 }
 
 bool check_ok_status_in_json(const char *json_response_buf)
 {
     char is_ok[100];
     memset(is_ok, 0, 100);
-    parse_response_field_from_json(is_ok, json_response_buf, "ok");
+    int res = parse_response_field_from_json(is_ok, json_response_buf, "ok");
+    if (res)
+    {
+        fuse_log(FUSE_LOG_DEBUG, "JSON RESPONSE: COULDN'T PARSE json: %s\n",
+                 json_response_buf);
+        return false;
+    }
 
-    fuse_log(FUSE_LOG_DEBUG, "%s\n", is_ok);
     if (strcmp(is_ok, "true") == 0)
     {
         return true;
     }
+    fuse_log(FUSE_LOG_DEBUG, "JSON RESPONSE: FALSE STATUS(%s)\n\n", json_response_buf);
     return false;
 }
 

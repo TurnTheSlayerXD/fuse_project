@@ -47,16 +47,18 @@ static tg_file tg_file_new_file(const char *path, size_t file_size)
 
     return file;
 }
-static tg_file tg_file_full_new_file(const char *path, const char *file_id, const char *message_id, size_t file_size)
-{
-    tg_file file = (tg_file){.type = TG_FILE, .file_size = file_size};
 
-    strcpy(file.path, path);
-    strcpy(file.file_id, file_id);
-    strcpy(file.message_id, message_id);
 
-    return file;
-}
+// static tg_file tg_file_full_new_file(const char *path, const char *file_id, const char *message_id, size_t file_size)
+// {
+//     tg_file file = (tg_file){.type = TG_FILE, .file_size = file_size};
+
+//     strcpy(file.path, path);
+//     strcpy(file.file_id, file_id);
+//     strcpy(file.message_id, message_id);
+
+//     return file;
+// }
 
 static tg_file tg_file_new_dir(const char *path)
 {
@@ -86,12 +88,8 @@ void tg_file_extract_filename(char *dst, tg_file *file)
 
 void tg_file_extract_directory(char *dst, tg_file *file)
 {
-    if (file->type == TG_DIR)
-    {
-        assert(false && "Error: cannot extract directory from directory type");
-    }
-    const char *start = strchr(file->path, '/') + 1;
-    const char *end = strchr(start, '/');
+    const char *start = strchr(file->path, '/');
+    const char *end = strchr(start + 1, '/');
     if (end == NULL)
     {
         dst[0] = '/';
@@ -286,6 +284,57 @@ buffer tg_file_load_contents(tg_config *config, tg_file *src)
     curl_global_cleanup();
 
     return file_response_buf;
+}
+
+int tg_remove_message_with_file(tg_config *config, tg_file *file)
+{
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+    CURLcode code;
+
+    CURL *hnd = curl_easy_init();
+
+    if (!hnd)
+    {
+        assert(false && "Could not create curl handle");
+    }
+
+    curl_easy_setopt(hnd, CURLOPT_ERRORBUFFER, error_buffer);
+    curl_easy_setopt(hnd, CURLOPT_FOLLOWLOCATION, 1L);
+
+    curl_easy_setopt(hnd, CURLOPT_WRITEFUNCTION, curl_response_json_writer);
+    curl_easy_setopt(hnd, CURLOPT_WRITEDATA, json_response_buf);
+
+    while (true)
+    {
+#define URL_SIZE 1000
+
+        char url[URL_SIZE];
+        sprintf(url, "https://api.telegram.org/bot%s/deleteMessage?chat_id=%s&message_id=%s",
+                config->token, config->chat_id, file->message_id);
+
+        curl_easy_setopt(hnd, CURLOPT_URL, url);
+
+        code = curl_easy_perform(hnd);
+
+        if (code != CURLE_OK)
+        {
+            fuse_log(FUSE_LOG_DEBUG, "CURL RETURNED FALSE deleteMessage REQUEST\n\n");
+            break;
+        }
+
+        if (!check_ok_status_in_json(json_response_buf))
+        {
+            fuse_log(FUSE_LOG_DEBUG, "FAILED CHECKING OK STATUS deleteMessage REQUEST\n\n");
+            break;
+        }
+
+        break;
+    }
+
+    curl_easy_cleanup(hnd);
+    curl_global_cleanup();
+
+    return 0;
 }
 
 #endif // TG_FILE_H
