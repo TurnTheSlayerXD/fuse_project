@@ -10,12 +10,6 @@ typedef struct
     char token[TOKEN_SIZE];
 } tg_config;
 
-tg_config tg_config_new(const char *chat_id, const char *token)
-{
-    tg_config config;
-    strcpy(config.chat_id, chat_id);
-    strcpy(config.token, token);
-    return config;
-}
+tg_config tg_config_new(const char *chat_id, const char *token);
 
 #endif

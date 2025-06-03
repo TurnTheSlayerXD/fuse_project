@@ -2,12 +2,12 @@ cmake_minimum_required(VERSION 3.25.1)
 
 project(fuse_test C)
 
-add_executable(fuse_test main.c)
 
 add_compile_options(-Wall)
 add_compile_options(-Wextra)
 add_compile_options(-O2)
 
+add_executable(fuse_test main.c src/buffer.c src/tg_config.c src/tg_file.c src/tg_storage.c)
 
 target_include_directories(fuse_test PUBLIC "./fuse-3.17.2/include")
 target_include_directories(fuse_test PUBLIC "./fuse-3.17.2/build")

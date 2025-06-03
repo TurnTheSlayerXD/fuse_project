@@ -1,5 +1,6 @@
-CMakeFiles/fuse_test.dir/main.c.o: /home/andrew/fuse_test/main.c \
- /usr/include/stdc-predef.h \
+CMakeFiles/fuse_test.dir/src/buffer.c.o: \
+ /home/andrew/fuse_test/src/buffer.c /usr/include/stdc-predef.h \
+ /home/andrew/fuse_test/./include/buffer.h \
  /home/andrew/fuse_test/./fuse-3.17.2/include/fuse.h \
  /home/andrew/fuse_test/./fuse-3.17.2/include/fuse_common.h \
  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdbool.h \
@@ -69,51 +70,4 @@ CMakeFiles/fuse_test.dir/main.c.o: /home/andrew/fuse_test/main.c \
  /usr/include/x86_64-linux-gnu/bits/floatn.h \
  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
  /usr/include/x86_64-linux-gnu/bits/stdio.h /usr/include/string.h \
- /usr/include/strings.h /usr/include/errno.h \
- /usr/include/x86_64-linux-gnu/bits/errno.h /usr/include/linux/errno.h \
- /usr/include/x86_64-linux-gnu/asm/errno.h \
- /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
- /home/andrew/fuse_test/./include/tg_file.h /usr/include/stdlib.h \
- /usr/include/x86_64-linux-gnu/bits/waitflags.h \
- /usr/include/x86_64-linux-gnu/bits/waitstatus.h /usr/include/alloca.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
- /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
- /home/andrew/fuse_test/./include/tg_config.h \
- /home/andrew/fuse_test/./include/buffer.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/curl.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/curlver.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/system.h \
- /usr/include/x86_64-linux-gnu/sys/socket.h \
- /usr/include/x86_64-linux-gnu/bits/socket.h \
- /usr/include/x86_64-linux-gnu/bits/socket_type.h \
- /usr/include/x86_64-linux-gnu/bits/sockaddr.h \
- /usr/include/x86_64-linux-gnu/asm/socket.h \
- /usr/include/asm-generic/socket.h /usr/include/linux/posix_types.h \
- /usr/include/linux/stddef.h \
- /usr/include/x86_64-linux-gnu/asm/posix_types.h \
- /usr/include/x86_64-linux-gnu/asm/posix_types_64.h \
- /usr/include/asm-generic/posix_types.h \
- /usr/include/x86_64-linux-gnu/asm/bitsperlong.h \
- /usr/include/asm-generic/bitsperlong.h \
- /usr/include/x86_64-linux-gnu/asm/sockios.h \
- /usr/include/asm-generic/sockios.h \
- /usr/include/x86_64-linux-gnu/bits/types/struct_osockaddr.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/limits.h \
- /usr/lib/gcc/x86_64-linux-gnu/12/include/syslimits.h \
- /usr/include/limits.h /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
- /usr/include/x86_64-linux-gnu/bits/local_lim.h \
- /usr/include/linux/limits.h \
- /usr/include/x86_64-linux-gnu/bits/pthread_stack_min-dynamic.h \
- /usr/include/x86_64-linux-gnu/bits/pthread_stack_min.h \
- /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
- /usr/include/x86_64-linux-gnu/sys/time.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/easy.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/multi.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/curl.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/urlapi.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/options.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/header.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/websockets.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/mprintf.h \
- /home/andrew/fuse_test/./curl-8.13.0/include/curl/typecheck-gcc.h \
- /usr/include/inttypes.h /home/andrew/fuse_test/./include/tg_storage.h
+ /usr/include/strings.h
