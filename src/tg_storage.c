@@ -51,14 +51,15 @@ tg_file *tg_storage_find_by_path(tg_storage *st, const char *path)
 
 tg_file tg_storage_remove_by_path(tg_storage *st, const char *path)
 {
+    if (st->size == 0)
+    {
+        return (tg_file){0};
+    }
+
     for (int i = 0; i < st->size; ++i)
     {
         if (strcmp(st->files[i].path, path) == 0)
         {
-            if (st->size == 0)
-            {
-                return (tg_file){0};
-            }
             tg_file file = st->files[i];
             st->files[i] = st->files[--st->size];
             return file;

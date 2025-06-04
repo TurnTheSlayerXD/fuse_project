@@ -53,7 +53,7 @@ void tg_file_extract_filename(char *dst, tg_file *file);
 void tg_file_extract_directory(char *dst, tg_file *file);
 size_t curl_response_file_writer(char *data, size_t size, size_t nmemb,
                                  void *p);
-static size_t curl_response_json_writer(char *data, size_t size, size_t nmemb,
+size_t curl_response_json_writer(char *data, size_t size, size_t nmemb,
                                         void *p);
 void tg_put_file(tg_file *file, tg_config *config, buffer *data);
 buffer tg_file_load_contents(tg_config *config, tg_file *src);

@@ -64,6 +64,30 @@ static int hello_getattr(const char *path, struct stat *stbuf,
     return res;
 }
 
+static int hello_rmdir(const char *path)
+{
+    tg_file *dir = tg_storage_find_by_path(&storage, path);
+    if (!dir || dir->type == TG_FILE)
+    {
+        return -ENOTDIR;
+    }
+
+    int i = -1;
+    while ((i = tg_storage_find_files_by_dir(&storage, path, i + 1)) != -1)
+    {
+        tg_file *file = &storage.files[i];
+        if (file->file_size > 0)
+        {
+            tg_remove_message_with_file(&config, file);
+        }
+        tg_storage_remove_by_path(&storage, file->path);
+    }
+
+    tg_storage_remove_by_path(&storage, path);
+
+    return 0;
+}
+
 static int hello_readdir(const char *path, void *buf, fuse_fill_dir_t filler,
                          off_t offset, struct fuse_file_info *fi,
                          enum fuse_readdir_flags flags)
@@ -134,10 +158,6 @@ static int hello_open(const char *path, struct fuse_file_info *fi)
     tg_file *file = tg_storage_find_by_path(&storage, path);
     if (!file)
         return -ENOENT;
-
-    // if ((fi->flags & O_ACCMODE) != O_RDONLY)
-    //     return -EACCES;
-
     return 0;
 }
 
@@ -153,6 +173,11 @@ static int hello_read(const char *path, char *buf, size_t size, off_t offset,
 
     if (!file)
         return -ENOENT;
+
+    if (strlen(file->file_id) == 0)
+    {
+        return 0;
+    }
 
     buffer src = tg_file_load_contents(&config, file);
 
@@ -240,7 +265,7 @@ static int hello_mkdir(const char *path, mode_t mode)
     return 0;
 }
 
-int hello_unlink(const char *path)
+static int hello_unlink(const char *path)
 {
     fuse_log(FUSE_LOG_DEBUG, "Entered UNLINK cbk: path=[%s]\n", path);
     tg_file file = tg_storage_remove_by_path(&storage, path);
@@ -251,6 +276,21 @@ int hello_unlink(const char *path)
     }
 
     tg_remove_message_with_file(&config, &file);
+    return 0;
+}
+
+static int hello_setxattr(const char *path, const char *name, const char *value,
+                          size_t size, int flags)
+{
+    (void)path, (void)name, (void)value, (void)size, (void)flags;
+    return 0;
+}
+
+static int hello_utimens(const char *path, const struct timespec ts[2],
+                         struct fuse_file_info *fi)
+{
+    (void)fi, (void)path, (void)ts, (void)fi;
+
     return 0;
 }
 
@@ -265,6 +305,9 @@ static const struct fuse_operations hello_oper = {
     .create = hello_create,
     .mkdir = hello_mkdir,
     .unlink = hello_unlink,
+    .setxattr = hello_setxattr,
+    .utimens = hello_utimens,
+    .rmdir = hello_rmdir,
 };
 
 int main(int argc, char **argv)
