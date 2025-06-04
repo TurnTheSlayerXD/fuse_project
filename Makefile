@@ -2,7 +2,9 @@ CFLAGS=-Wall -Wextra -O2
 SRC=./src/
 BUILD=./make_build/
 INCLUDE=-I./include -I./fuse-3.17.2/include -I./fuse-3.17.2/build -I./curl-8.13.0/include/curl
-LIB=-L /usr/lib/x86_64-linux-gnu -l:libcurl.so.4.8.0 -L ./fuse-3.17.2/build/lib -l:libfuse3.so.3.17.2
+LIB=-L/usr/lib/x86_64-linux-gnu -l:libcurl.so.4.8.0 -L./fuse-3.17.2/build/lib -l:libfuse3.so -Wl,-R./fuse-3.17.2/build/lib
+
+INCLUDE_FILES=./include/buffer.h ./include/tg_config.h ./include/tg_file.h ./include/tg_storage.h
 
 all: fuse_test.exe
 
@@ -21,5 +23,7 @@ $(BUILD)tg_config.o: $(SRC)tg_config.c
 $(BUILD)tg_file.o: $(SRC)tg_file.c
 	gcc -c $(SRC)tg_file.c -o $(BUILD)tg_file.o $(CFLAGS) $(INCLUDE)
 
-$(BUILD)tg_storage.o: $(SRC)tg_storage.c
+$(BUILD)tg_storage.o: $(SRC)tg_storage.c $(INCLUDE_FILES)
 	gcc -c $(SRC)tg_storage.c -o $(BUILD)tg_storage.o $(CFLAGS) $(INCLUDE)
+
+

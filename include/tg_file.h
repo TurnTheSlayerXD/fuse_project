@@ -10,9 +10,7 @@
 #include <inttypes.h>
 
 #define JSON_RESPONSE_BUF_SIZE 1024
-static char error_buffer[CURL_ERROR_SIZE];
 
-static char json_response_buf[JSON_RESPONSE_BUF_SIZE];
 
 typedef enum
 {

@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.25.1)
 
 project(fuse_test C)
 
-
 add_compile_options(-Wall)
 add_compile_options(-Wextra)
 add_compile_options(-O2)

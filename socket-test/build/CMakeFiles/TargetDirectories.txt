@@ -1,3 +1,0 @@
-/home/andrew/fuse_project/socket-test/build/CMakeFiles/socket_test.dir
-/home/andrew/fuse_project/socket-test/build/CMakeFiles/edit_cache.dir
-/home/andrew/fuse_project/socket-test/build/CMakeFiles/rebuild_cache.dir

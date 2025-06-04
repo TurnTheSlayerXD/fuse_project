@@ -1,5 +1,8 @@
 #include <tg_file.h>
 
+static char error_buffer[CURL_ERROR_SIZE];
+static char json_response_buf[JSON_RESPONSE_BUF_SIZE];
+
 tg_file tg_file_new_file(const char *path, size_t file_size)
 {
     tg_file file = (tg_file){.type = TG_FILE, .file_size = file_size};

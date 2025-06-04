@@ -1,4 +1,4 @@
-# Install script for directory: /home/andrew/fuse_test
+# Install script for directory: /home/andreybazhura/fuse_project
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/andrew/fuse_test/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/andreybazhura/fuse_project/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

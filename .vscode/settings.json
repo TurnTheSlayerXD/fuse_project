@@ -24,7 +24,11 @@
         "stdio.h": "c",
         "fuse_common.h": "c",
         "tg_storage.h": "c",
-        "buffer.h": "c"
+        "buffer.h": "c",
+        "unistd.h": "c",
+        "socket.h": "c",
+        "types.h": "c",
+        "openssl.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

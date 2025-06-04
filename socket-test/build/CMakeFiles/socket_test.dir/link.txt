@@ -1,1 +1,0 @@
-/usr/bin/cc -g CMakeFiles/socket_test.dir/main.c.o -o socket_test  /usr/lib/x86_64-linux-gnu/libcurl.so.4.8.0 
