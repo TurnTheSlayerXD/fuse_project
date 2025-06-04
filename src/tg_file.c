@@ -16,8 +16,8 @@ tg_file tg_file_new_file(const char *path, size_t file_size)
 
 tg_file tg_file_new_dir(const char *path)
 {
-
-    tg_file file = (tg_file){.type = TG_DIR};
+    tg_file file = {0};
+    file.type = TG_DIR;
     strcpy(file.path, path);
     return file;
 }
